@@ -4,7 +4,7 @@
 
    Adding a demo video to a project — `videos` is a list, so a project
    can carry more than one and the case study gets a clip switcher:
-     videos: [{ type: 'youtube', id: 'dQw4w9WgXcQ', label: 'Overview' }]
+     videos: [{ type: 'youtube', id: 'YOUTUBE_ID', label: 'Overview' }]
      videos: [{ type: 'file', src: 'assets/video/demo.mp4', label: 'Demo' }]
    Add `portrait: true` for a vertical clip (a YouTube Short); it is then
    rendered in a phone-shaped frame instead of a 16:9 one.
