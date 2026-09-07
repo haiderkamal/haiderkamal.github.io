@@ -102,13 +102,13 @@
   /* ---------- sizing ---------- */
   let W = 0, H = 0, cx = 0, cy = 0, dpr = 1;
   function resize() {
-    dpr = Math.min(window.devicePixelRatio || 1, small ? 2 : 1.5);
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
     W = window.innerWidth; H = window.innerHeight;
     cv.width = Math.max(1, (W * dpr) | 0);
     cv.height = Math.max(1, (H * dpr) | 0);
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    cx = W > 1000 ? W * 0.64 : W * 0.5;
-    cy = H * 0.5;
+    cx = W > 1000 ? W * 0.66 : W * 0.5;
+    cy = H * 0.54;
   }
   resize();
   let rt;
@@ -174,7 +174,7 @@
 
     const camA = CAM[k], camB = CAM[k + 1];
     const rx = lerp(camA.rx, camB.rx, f) + my * 0.06;
-    const ry = lerp(camA.ry, camB.ry, f) + Math.sin(t * 0.11) * 0.16 + mx * 0.13;
+    const ry = lerp(camA.ry, camB.ry, f) + Math.sin(t * 0.12) * 0.22 + mx * 0.14;
     const dist = lerp(camA.dist, camB.dist, f);
     const cosY = Math.cos(ry), sinY = Math.sin(ry);
     const cosX = Math.cos(rx), sinX = Math.sin(rx);
@@ -235,7 +235,10 @@
                                    : 'rgba(240,239,236,' + a.toFixed(3) + ')';
       ctx.beginPath();
       const ys = by[b], rs = br[b];
-      for (let n = 0; n < xs.length; n++) ctx.rect(xs[n] - rs[n], ys[n] - rs[n], rs[n] * 2, rs[n] * 2);
+      for (let n = 0; n < xs.length; n++) {
+        ctx.moveTo(xs[n] + rs[n], ys[n]);
+        ctx.arc(xs[n], ys[n], rs[n], 0, 6.2832);
+      }
       ctx.fill();
     }
 
