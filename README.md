@@ -25,27 +25,48 @@ assets/Haider-Kamal-Resume.pdf
 
 ### Adding a demo video
 
-Every project and game has a `video:` field. Three options:
+Every project and game has a `videos:` list, so one project can carry several
+clips — the case study then gets a switcher between them.
 
 ```js
-// 1. No video yet — renders a "drop your file here" placeholder
-video: null
+videos: []                                                    // no clip: no media block is rendered
 
-// 2. A file in this repo (keep it under ~20 MB; GitHub hard-caps files at 100 MB)
-video: { type: 'file', src: 'assets/video/brawldinos.mp4' }
+videos: [{ type: 'youtube', id: 'NIzQfM4HnCs', label: 'System overview' }]
 
-// 3. YouTube — best for anything long or large. Unlisted videos work fine.
-video: { type: 'youtube', id: 'dQw4w9WgXcQ' }   // the id from the watch?v= URL
+videos: [                                                     // two clips -> switcher appears
+  { type: 'youtube', id: 'NIzQfM4HnCs', label: 'System overview' },
+  { type: 'youtube', id: 'GhStNbrziKE', label: 'Retail deployment' }
+]
+
+videos: [{ type: 'file', src: 'assets/video/demo.mp4', label: 'Demo' }]
 ```
 
-Each placeholder on the live site prints the exact filename it's expecting, so you can
-match names without reading the code.
+The `id` is the part after `watch?v=` or `youtu.be/`.
 
-**Compressing a clip before committing** (needs ffmpeg):
+**Vertical clips (YouTube Shorts)** take `portrait: true` and render in a
+phone-shaped 9:16 frame instead of being pillarboxed into 16:9:
+
+```js
+{ type: 'youtube', id: 'ze9Z9zH86p0', label: 'PvP gameplay',
+  portrait: true, poster: 'assets/img/brawldinos-1.webp' }
+```
+
+**Nothing loads from YouTube until someone presses play.** Each clip shows a
+local poster with a play button, and the real player only replaces it on click
+— so embeds cost nothing on page load. Landscape clips fall back to the
+project's slide image as the poster; for portrait ones, give an explicit
+`poster`. To grab a Short's real vertical thumbnail:
 
 ```bash
-ffmpeg -i raw-capture.mp4 -vf "scale=1280:-2,fps=30" -c:v libx264 -crf 26 \
-       -preset slow -movflags +faststart -c:a aac -b:a 96k assets/video/brawldinos.mp4
+curl -o /tmp/s.jpg "https://i.ytimg.com/vi/<ID>/oardefault.jpg"
+ffmpeg -i /tmp/s.jpg -vf "scale=540:-2:flags=lanczos" -q:v 78 assets/img/<name>.webp
+```
+
+**Self-hosted files** work too, but keep them under ~20 MB (GitHub hard-caps
+files at 100 MB and Pages is not a video host). To compress:
+
+```bash
+ffmpeg -i raw-capture.mp4 -vf "scale=1280:-2,fps=30" -c:v libx264 -crf 26        -preset slow -movflags +faststart -c:a aac -b:a 96k assets/video/clip.mp4
 ```
 
 ### Adding a project

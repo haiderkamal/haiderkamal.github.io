@@ -2,10 +2,13 @@
    Content source of truth.
    Edit this file to change the site — nothing else needs touching.
 
-   Adding a demo video to a project:
-     video: { type: 'file',    src: 'assets/video/my-demo.mp4' }
-     video: { type: 'youtube', id:  'dQw4w9WgXcQ' }
-   Leave `video: null` and a "drop your file here" slot is rendered instead.
+   Adding a demo video to a project — `videos` is a list, so a project
+   can carry more than one and the case study gets a clip switcher:
+     videos: [{ type: 'youtube', id: 'dQw4w9WgXcQ', label: 'Overview' }]
+     videos: [{ type: 'file', src: 'assets/video/demo.mp4', label: 'Demo' }]
+   Add `portrait: true` for a vertical clip (a YouTube Short); it is then
+   rendered in a phone-shaped frame instead of a 16:9 one.
+   Leave `videos: []` and no media block is rendered at all.
    ============================================================ */
 
 const AI_PROJECTS = [
@@ -17,7 +20,10 @@ const AI_PROJECTS = [
     groups: ['cv'],
     accent: '#22b8f0',
     img: 'assets/img/sentry-vision.webp',
-    video: null,
+    videos: [
+      { type: 'youtube', id: 'NIzQfM4HnCs', label: 'System overview' },
+      { type: 'youtube', id: 'GhStNbrziKE', label: 'Retail deployment' }
+    ],
     blurb: 'Turns existing CCTV into an always-on analyst — theft, weapons, violence and checkout fraud flagged in real time, with the evidence frame attached.',
     lede: 'Most sites are already covered by cameras. The problem is that nobody can watch fifty feeds at once, and by the time footage is reviewed the goods are gone. Sentry Vision runs continuous inference across every camera and every checkout lane, recognises the events that actually cost money and put people at risk, and raises an alert in the moment.',
     capabilities: [
@@ -51,7 +57,7 @@ const AI_PROJECTS = [
     groups: ['cv'],
     accent: '#f0a020',
     img: 'assets/img/cementiq.webp',
-    video: null,
+    videos: [{ type: 'youtube', id: '9xdqnXCxKNU', label: 'Dispatch audit walkthrough' }],
     blurb: 'Three cameras per loading bay replace the clipboard: every truck audited on six points and reconciled straight into the ERP, with zero manual tally.',
     lede: 'Cement dispatch is still audited the way it was decades ago — a person at the bay counting bags onto a truck and writing a number on a tally sheet. That handwritten number is the one the ERP trusts, and it is exactly what pilferage, short-loading and honest miscounts quietly erode. CementIQ replaces the clipboard with three AI cameras per bay.',
     capabilities: [
@@ -85,7 +91,7 @@ const AI_PROJECTS = [
     groups: ['twin'],
     accent: '#2fd6a8',
     img: 'assets/img/digital-twin-ops.webp',
-    video: null,
+    videos: [{ type: 'youtube', id: '7zzTy9eEslw', label: 'Pipeline integrity demo' }],
     blurb: 'A live 3D twin of a pipeline network — sensors, autonomous drone inspection and predictive integrity, so failures are found before they happen.',
     lede: 'Real-time sensors, autonomous AI drone inspection and predictive integrity modelling, combined into one mirrored 3D model of the whole network. Every pipe carries a health score, every anomaly raises an early warning, and maintenance is scheduled by prediction rather than by breakdown.',
     capabilities: [
@@ -119,7 +125,7 @@ const AI_PROJECTS = [
     groups: ['twin', 'xr'],
     accent: '#55c2ef',
     img: 'assets/img/vision-3d.webp',
-    video: null,
+    videos: [{ type: 'youtube', id: 'O6FmJEQ3vJc', label: 'Photoreal twin walkthrough' }],
     blurb: 'Photoreal digital twins from an ordinary camera — a walkthrough video, a drone pass, or a single photograph. Then step inside it in VR.',
     lede: 'Vision 3D rebuilds the real world as a photorealistic digital twin — a factory floor, a showroom, a property, a product — captured with an ordinary camera rather than a laser scanner. The differentiator is the one-shot path: where only a single photograph exists, the image-to-3D engine still produces a full model. The result opens in a browser, on a phone, in AR, or at life size in VR.',
     metrics: [
@@ -150,7 +156,7 @@ const AI_PROJECTS = [
     groups: ['cv', 'xr'],
     accent: '#4f9dfb',
     img: 'assets/img/immersive-ar.webp',
-    video: null,
+    videos: [{ type: 'youtube', id: 'NYGCVvzJuAw', label: 'Live stadium AR' }],
     blurb: 'Fans point a phone at the match and see every player’s name, number, position and speed on the real pitch — 22 players tracked live from stadium cameras.',
     lede: 'A multi-camera vision pipeline detects, tracks and identifies all twenty-two players frame by frame, resolves their stats, and pushes the result onto the fan’s live camera view in about a tenth of a second. No operators, no manual tagging, no delay — and a data-rich matchday layer that unlocks new broadcast overlays and premium sponsorship inventory.',
     metrics: [
@@ -181,7 +187,7 @@ const AI_PROJECTS = [
     groups: ['genai'],
     accent: '#55c2ef',
     img: 'assets/img/avatar-assist.webp',
-    video: null,
+    videos: [],
     blurb: 'A real-time virtual agent that listens, understands and answers out loud — with a lifelike, lip-synced face, in a one-line embed, running on your own hardware.',
     lede: 'Chat widgets answer questions. They don’t hold attention, they don’t serve a customer who would rather speak than type, and they never feel like your brand. AvatarAssist gives the interaction a face and a voice: a customer speaks in their own language and a lip-synced avatar answers out loud in about two seconds. Every stage of the loop runs on the client’s own hardware.',
     metrics: [
@@ -213,7 +219,7 @@ const AI_PROJECTS = [
     groups: ['xr', 'genai'],
     accent: '#8b7cf0',
     img: 'assets/img/accelerator.webp',
-    video: null,
+    videos: [],
     blurb: 'Trains the four things recruiters screen for — coding, aptitude, interviews, communication — with an AI mentor that coaches instead of spoon-feeding, plus VR interview practice on Meta Quest.',
     lede: 'Colleges are measured on placements, but the skills recruiters screen for are trained in four different places, if at all. Accelerator puts all four in one platform, adds an AI mentor built to coach rather than answer, gives students VR interview practice with an avatar that speaks and listens, and reduces the whole picture to a single Placement-Readiness score. Every model runs locally on the institution’s own machines — private, and with no per-student inference bill.',
     metrics: [
@@ -237,7 +243,10 @@ const GAMES_FEATURED = {
   name: 'Brawl Dinos',
   tagline: 'Real-time multiplayer arena brawler — Android',
   accent: '#f0a020',
-  video: null,
+  videos: [
+    { type: 'youtube', id: 'ze9Z9zH86p0', label: 'PvP gameplay', portrait: true, poster: 'assets/img/brawldinos-1.webp' },
+    { type: 'youtube', id: 'WgxMhPJlNC0', label: 'Arena match',  portrait: true, poster: 'assets/img/brawldinos-2.webp' }
+  ],
   store: 'https://play.google.com/store/apps/details?id=com.ByteCoder.BrawlDinos',
   blurb: 'My latest shipped title: a live multiplayer dino brawler on the Play Store, built in Unity with authoritative server-side matches, real-time state sync and cross-device matchmaking.',
   stack: ['Unity', 'C#', 'Real-time multiplayer', 'Authoritative server', 'Matchmaking', 'Android']
@@ -251,7 +260,7 @@ const GAMES = [
     where: 'Ideofuzion',
     blurb: 'An obstacle-running game inspired by UIPM Laser Run and Wipeout. Unity state machines drive responsive player control; a custom socket server powers real-time multiplayer, with Facebook friend challenges and leaderboards layered on top.',
     stack: ['Unity', 'Socket server', 'State machines', 'Facebook SDK', 'Leaderboards', 'iOS + Android'],
-    video: null
+    videos: []
   },
   {
     name: 'Games-fi',
@@ -260,7 +269,7 @@ const GAMES = [
     where: 'Ideofuzion',
     blurb: 'Core gameplay loops built around Tron and multiple cryptocurrencies for in-game earnings and withdrawals, plus NFT minting and trading and a secure raffles hub — with the blockchain plumbing kept invisible enough to stay frictionless.',
     stack: ['Unity', 'Tron', 'Web3', 'NFT minting', 'Smart contracts', 'Wallet integration'],
-    video: null
+    videos: []
   },
   {
     name: 'Stunt-Z',
@@ -269,7 +278,7 @@ const GAMES = [
     where: 'Ideofuzion',
     blurb: 'A realistic jeep-racing game with advanced vehicle physics, particle effects and NOS boosts across 150+ tracks. Assets delivered through Google Play Asset Delivery, with dynamic biomes synchronised server-side to keep world state consistent.',
     stack: ['Unity', 'Vehicle physics', 'Play Asset Delivery', 'VFX', 'Server sync'],
-    video: null
+    videos: []
   },
   {
     name: 'Project Zambeel',
@@ -278,7 +287,7 @@ const GAMES = [
     where: 'Alam Digital HQ',
     blurb: 'Led design and development of a GTA-inspired, third-person story-driven open-world game set on a tropical mafia-boss island. Built the dynamic mission and narrative system driving branching story paths, and integrated high-fidelity asset pipelines for AAA-quality visuals.',
     stack: ['Unity', 'Open world', 'Mission system', 'Narrative branching', 'HDRP', 'Blender'],
-    video: null
+    videos: []
   },
   {
     name: 'Operation Basalat',
@@ -287,7 +296,7 @@ const GAMES = [
     where: 'Coding Cannon',
     blurb: 'A team-based Android shooter where players, as army operatives, coordinate to force militants from a school and rescue children. Real-time client–server networking, objective-driven gameplay loops and AI pathfinding for dynamic combat.',
     stack: ['Unity', 'Client–server', 'AI pathfinding', 'Objective systems', 'Multiplayer'],
-    video: null
+    videos: []
   },
   {
     name: 'Valet Parking',
@@ -296,7 +305,7 @@ const GAMES = [
     where: 'Alam Digital HQ',
     blurb: 'An HD parking simulator with realistic physics and intuitive touch controls, a level-based grading system that scores performance and unlocks challenges, and optimised 3D asset streaming for stable framerates across a wide device range.',
     stack: ['Unity', 'Vehicle physics', 'Asset streaming', 'Memory optimisation', 'Android'],
-    video: null
+    videos: []
   }
 ];
 

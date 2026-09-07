@@ -29,18 +29,39 @@
     '" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + (I[n] || '') + '</svg>';
   const svgFill = n => '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">' + (I[n] || '') + '</svg>';
 
-  /* ---------- media slot ---------- */
-  function media(video, poster, hint) {
-    if (video && video.type === 'youtube') {
-      return '<iframe src="https://www.youtube-nocookie.com/embed/' + video.id +
-        '?rel=0&modestbranding=1" title="Demo video" loading="lazy" allowfullscreen ' +
-        'allow="accelerometer; clipboard-write; encrypted-media; picture-in-picture"></iframe>';
+  /* ---------- video embeds ----------
+     Nothing is requested from YouTube until someone presses play: a facade
+     shows a local poster, and the real player replaces it on click. */
+  function embed(v, autoplay) {
+    if (!v) return '';
+    if (v.type === 'youtube') {
+      return '<iframe src="https://www.youtube-nocookie.com/embed/' + v.id +
+        '?rel=0&modestbranding=1&playsinline=1' + (autoplay ? '&autoplay=1' : '') +
+        '" title="' + (v.label || 'Demo video') + '" loading="lazy" allowfullscreen ' +
+        'allow="autoplay; accelerometer; clipboard-write; encrypted-media; picture-in-picture; fullscreen"></iframe>';
     }
-    if (video && video.type === 'file') {
-      return '<video src="' + video.src + '"' + (poster ? ' poster="' + poster + '"' : '') +
-        ' controls playsinline preload="metadata"></video>';
-    }
-    if (poster) return '<img src="' + poster + '" alt="" loading="lazy" decoding="async">';
+    return '<video src="' + v.src + '" controls playsinline preload="metadata"' +
+      (autoplay ? ' autoplay' : '') + '></video>';
+  }
+
+  // `key` addresses the clip for the click handler: "<listName>:<index>"
+  function facade(v, key, poster) {
+    const img = poster || v.poster;
+    return '<button class="yt" data-play="' + key + '" aria-label="Play ' + (v.label || 'demo video') + '">' +
+      (img ? '<img src="' + img + '" alt="" loading="lazy" decoding="async">' : '') +
+      '<span class="yt-btn">' + svgFill('play') + '</span>' +
+      '<span class="yt-cap">' + (v.label || 'Play demo') + '</span>' +
+    '</button>';
+  }
+
+  function clipFor(key) {
+    const [list, i] = key.split(':');
+    if (list === 'featured') return GAMES_FEATURED.videos[+i];
+    const p = AI_PROJECTS.find(x => x.slug === list);
+    return p && p.videos[+i];
+  }
+
+  function slot(hint) {
     return '<div class="slot">' + svg('film', 1.3) + '<em>Demo slot</em>' +
       (hint ? '<code>' + hint + '</code>' : '') + '</div>';
   }
@@ -96,7 +117,8 @@
         '<div class="card-media">' +
           '<img src="' + p.img + '" alt="' + p.name + ' — ' + p.tagline + '" loading="lazy" decoding="async">' +
           '<span class="card-cat">' + p.category + '</span>' +
-          (p.video ? '<span class="card-demo">' + svgFill('play') + 'Demo</span>' : '') +
+          (p.videos.length ? '<span class="card-demo">' + svgFill('play') +
+            (p.videos.length > 1 ? p.videos.length + ' demos' : 'Demo') + '</span>' : '') +
         '</div>' +
         '<h3>' + p.name + '</h3>' +
         '<div class="card-tag">' + p.tagline + '</div>' +
@@ -134,6 +156,14 @@
   /* ---------- games ---------- */
   function buildGames() {
     const f = GAMES_FEATURED;
+    const fv = f.videos || [];
+    // vertical Shorts get phone-shaped frames rather than being pillarboxed into 16:9
+    const featMedia = fv.length && fv[0].portrait
+      ? '<div class="shorts">' + fv.map((v, i) =>
+          '<figure class="short"><div class="short-frame">' + facade(v, 'featured:' + i) + '</div>' +
+          '<figcaption>' + v.label + '</figcaption></figure>').join('') + '</div>'
+      : '<div class="feat-media">' + (fv.length ? facade(fv[0], 'featured:0') : slot('assets/video/brawldinos.mp4')) + '</div>';
+
     $('#featured').innerHTML =
       '<div>' +
         '<span class="ribbon">' + svgFill('play') + 'Latest release · live on Google Play</span>' +
@@ -142,13 +172,12 @@
         '<div class="pills">' + f.stack.map(s => '<span class="pill">' + s + '</span>').join('') + '</div>' +
         '<a class="gplay" href="' + f.store + '" target="_blank" rel="noopener">' + svgFill('gplay') +
           '<span><small>Get it on</small><b>Google Play</b></span></a>' +
-      '</div>' +
-      '<div class="feat-media">' + media(f.video, null, 'assets/video/brawldinos.mp4') + '</div>';
+      '</div>' + featMedia;
 
     $('#games-grid').innerHTML = GAMES.map((g, i) =>
       '<article class="card' + (i < 2 ? ' wide' : '') + ' rv" style="--c:' + g.accent + ';cursor:default">' +
         '<span class="card-idx">' + g.where + '</span>' +
-        (g.video ? '<div class="card-media">' + media(g.video, null, '') + '</div>' : '') +
+        (g.videos.length ? '<div class="card-media">' + embed(g.videos[0]) + '</div>' : '') +
         '<h3>' + g.name + '</h3>' +
         '<div class="card-tag">' + g.tagline + '</div>' +
         '<p>' + g.blurb + '</p>' +
@@ -185,15 +214,25 @@
   const modal = $('#modal');
   const panel = $('#modal-panel');
   let lastFocus = null;
+  let openProject = null;
 
   function openModal(slug) {
     const p = AI_PROJECTS.find(x => x.slug === slug);
     if (!p) return;
     lastFocus = document.activeElement;
+    openProject = p;
+    const vs = p.videos || [];
 
     let html = '<button class="modal-close" aria-label="Close">' + svg('close', 1.9) + '</button>' +
-      '<div class="m-hero' + (p.video ? ' is-video' : '') + '">' +
-        media(p.video, p.img, 'assets/video/' + p.slug + '.mp4') + '</div>' +
+      '<div class="m-hero' + (vs.length ? ' is-video' : '') + '" id="m-stage">' +
+        (vs.length ? facade(vs[0], p.slug + ':0', p.img)
+                   : '<img src="' + p.img + '" alt="' + p.name + '" loading="lazy" decoding="async">') +
+      '</div>' +
+      (vs.length > 1
+        ? '<div class="m-switch" style="--c:' + p.accent + '">' + vs.map((v, i) =>
+            '<button class="' + (i === 0 ? 'on' : '') + '" data-i="' + i + '">' +
+            pad(i + 1) + ' · ' + v.label + '</button>').join('') + '</div>'
+        : '') +
       '<div class="m-body" style="--c:' + p.accent + '">' +
         '<h3 id="modal-title">' + p.name + '</h3>' +
         '<div class="m-tag">' + p.tagline + ' — ' + p.category + '</div>' +
@@ -234,11 +273,29 @@
   function closeModal() {
     modal.classList.remove('show');
     document.body.style.overflow = '';
+    // kill the embed immediately, or it keeps playing audio through the fade-out
+    const stage = $('#m-stage', panel);
+    if (stage) stage.innerHTML = '';
+    openProject = null;
     setTimeout(() => { panel.innerHTML = ''; }, 520);
     if (lastFocus) lastFocus.focus();
   }
 
   document.addEventListener('click', e => {
+    // facade -> real player
+    const play = e.target.closest('.yt');
+    if (play) {
+      const clip = clipFor(play.dataset.play);
+      if (clip) play.parentNode.innerHTML = embed(clip, true);
+      return;
+    }
+    // switching clips implies intent, so go straight to the player
+    const swap = e.target.closest('.m-switch button');
+    if (swap && openProject) {
+      $$('.m-switch button', panel).forEach(b => b.classList.toggle('on', b === swap));
+      $('#m-stage', panel).innerHTML = embed(openProject.videos[+swap.dataset.i], true);
+      return;
+    }
     const card = e.target.closest('#project-grid .card');
     if (card) { openModal(card.dataset.slug); return; }
     if (e.target.closest('.modal-close') || e.target === modal) closeModal();
