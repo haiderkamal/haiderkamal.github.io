@@ -23,6 +23,9 @@
     github: '<path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>',
     li:     '<path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/>',
     play:   '<polygon points="6 3 20 12 6 21 6 3"/>',
+    ext:    '<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6"/><path d="M10 14 21 3"/>',
+    left:   '<path d="M15 18l-6-6 6-6"/>',
+    right:  '<path d="M9 18l6-6-6-6"/>',
     gplay:  '<path d="M3 2.5v19a1 1 0 0 0 1.5.87l14-9.5a1 1 0 0 0 0-1.74l-14-9.5A1 1 0 0 0 3 2.5Z"/>'
   };
   const svg = (n, w) => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="' + (w || 1.7) +
@@ -174,15 +177,34 @@
           '<span><small>Get it on</small><b>Google Play</b></span></a>' +
       '</div>' + featMedia;
 
-    $('#games-grid').innerHTML = GAMES.map((g, i) =>
-      '<article class="card' + (i < 2 ? ' wide' : '') + ' rv" style="--c:' + g.accent + ';cursor:default">' +
-        '<span class="card-idx">' + g.where + '</span>' +
-        (g.videos.length ? '<div class="card-media">' + embed(g.videos[0]) + '</div>' : '') +
+    $('#games-grid').innerHTML = GAMES.map((g, i) => {
+      const sh = g.shots || [];
+      let gallery = '';
+      if (sh.length && g.portraitShots) {
+        // phone captures get phone-shaped frames, same language as the Shorts above
+        gallery = '<div class="shot-row">' + sh.slice(0, 3).map((src, n) =>
+          '<button class="shot" data-shots="' + i + '" data-n="' + n + '">' +
+            '<img src="' + src + '" alt="' + g.name + ' screenshot ' + (n + 1) + '" loading="lazy" decoding="async">' +
+          '</button>').join('') +
+          (sh.length > 3 ? '<span class="shot-more">+' + (sh.length - 3) + '</span>' : '') + '</div>';
+      } else if (sh.length) {
+        gallery = '<button class="card-media shot" data-shots="' + i + '" data-n="0">' +
+          '<img src="' + sh[0] + '" alt="' + g.name + ' screenshot" loading="lazy" decoding="async">' +
+          '<span class="shot-count">' + svg('film', 1.6) + sh.length + ' shots</span></button>';
+      } else if (g.videos.length) {
+        gallery = '<div class="card-media">' + embed(g.videos[0]) + '</div>';
+      }
+      return '<article class="card' + (i < 2 ? ' wide' : '') + ' rv" style="--c:' + g.accent + '">' +
+        '<span class="card-idx">' + g.where + '</span>' + gallery +
         '<h3>' + g.name + '</h3>' +
         '<div class="card-tag">' + g.tagline + '</div>' +
         '<p>' + g.blurb + '</p>' +
         '<div class="pills">' + g.stack.map(s => '<span class="pill">' + s + '</span>').join('') + '</div>' +
-      '</article>').join('');
+        (g.links ? '<div class="card-links">' + g.links.map(l =>
+          '<a href="' + l.href + '" target="_blank" rel="noopener">' + l.label +
+          svg('ext', 1.7) + '</a>').join('') + '</div>' : '') +
+      '</article>';
+    }).join('');
 
     $('#also').innerHTML = ALSO_SHIPPED.map(n => '<span class="pill">' + n + '</span>').join('');
   }
@@ -296,12 +318,58 @@
       $('#m-stage', panel).innerHTML = embed(openProject.videos[+swap.dataset.i], true);
       return;
     }
+    const shot = e.target.closest('.shot');
+    if (shot) { lbOpen(+shot.dataset.shots, +shot.dataset.n); return; }
     const card = e.target.closest('#project-grid .card');
     if (card) { openModal(card.dataset.slug); return; }
     if (e.target.closest('.modal-close') || e.target === modal) closeModal();
   });
   document.addEventListener('keydown', e => {
+    if (lb.classList.contains('show')) {
+      if (e.key === 'Escape') lbClose();
+      else if (e.key === 'ArrowRight') lbStep(1);
+      else if (e.key === 'ArrowLeft') lbStep(-1);
+      return;
+    }
     if (e.key === 'Escape' && modal.classList.contains('show')) closeModal();
+  });
+
+  /* ---------- screenshot lightbox ---------- */
+  const lb = $('#lightbox');
+  let lbShots = [], lbAt = 0, lbTitle = '', lbReturn = null;
+
+  function lbRender() {
+    $('#lb-img').src = lbShots[lbAt];
+    $('#lb-img').alt = lbTitle + ' — screenshot ' + (lbAt + 1);
+    $('#lb-cap').textContent = lbTitle;
+    $('#lb-n').textContent = pad(lbAt + 1) + ' / ' + pad(lbShots.length);
+    lb.classList.toggle('single', lbShots.length < 2);
+  }
+  function lbOpen(gi, n) {
+    const g = GAMES[gi];
+    if (!g || !g.shots) return;
+    lbReturn = document.activeElement;
+    lbShots = g.shots; lbAt = n || 0; lbTitle = g.name;
+    lb.classList.toggle('portrait', !!g.portraitShots);
+    lbRender();
+    lb.classList.add('show');
+    document.body.style.overflow = 'hidden';
+    $('.lb-close', lb).focus();
+  }
+  function lbStep(d) {
+    lbAt = (lbAt + d + lbShots.length) % lbShots.length;
+    lbRender();
+  }
+  function lbClose() {
+    lb.classList.remove('show');
+    document.body.style.overflow = '';
+    if (lbReturn) lbReturn.focus();
+  }
+
+  lb.addEventListener('click', e => {
+    if (e.target.closest('.lb-next')) return lbStep(1);
+    if (e.target.closest('.lb-prev')) return lbStep(-1);
+    if (e.target.closest('.lb-close') || e.target === lb || e.target.closest('.lb-stage') === null) lbClose();
   });
 
   /* ---------- nav + progress ---------- */

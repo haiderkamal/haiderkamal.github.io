@@ -247,6 +247,23 @@
   <div class="modal-panel" id="modal-panel"></div>
 </div>
 
+<!-- ============ SCREENSHOT LIGHTBOX ============ -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Screenshot viewer">
+  <button class="lb-close" aria-label="Close viewer">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+  </button>
+  <button class="lb-nav lb-prev" aria-label="Previous screenshot">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+  </button>
+  <figure class="lb-stage">
+    <img id="lb-img" alt="">
+    <figcaption><span id="lb-cap"></span><span id="lb-n"></span></figcaption>
+  </figure>
+  <button class="lb-nav lb-next" aria-label="Next screenshot">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+  </button>
+</div>
+
 <script src="assets/js/data.js"></script>
 <script src="assets/js/cloud.js"></script>
 <script src="assets/js/main.js"></script>

@@ -47,7 +47,7 @@ const AI_PROJECTS = [
       { title: 'Private & on-premise', blurb: 'Video stays on-site — no cloud, no per-camera fees.' }
     ],
     stack: ['Real-time inference', 'Object detection', 'Multi-camera re-ID', 'Pose / action recognition', 'Edge GPU', 'On-premise'],
-    scale: 'Designed to run 50+ cameras on a single on-premise deployment.'
+    scale: 'Multi-camera on-premise deployment on commodity GPUs — no cloud inference, no video leaving the site.'
   },
   {
     slug: 'cementiq',
@@ -160,14 +160,14 @@ const AI_PROJECTS = [
     blurb: 'Fans point a phone at the match and see every player’s name, number, position and speed on the real pitch — 22 players tracked live from stadium cameras.',
     lede: 'A multi-camera vision pipeline detects, tracks and identifies all twenty-two players frame by frame, resolves their stats, and pushes the result onto the fan’s live camera view in about a tenth of a second. No operators, no manual tagging, no delay — and a data-rich matchday layer that unlocks new broadcast overlays and premium sponsorship inventory.',
     metrics: [
-      { v: '96–98', u: '%', label: 'Live player-tracking accuracy (dual-camera)' },
+      { v: '96–98', u: '%', label: 'Detection accuracy on the merged two-camera output — 80–92% single-camera' },
       { v: '~0.1',       u: 's', label: 'Near-instant, real-time overlay latency' },
       { v: '22',         u: '',  label: 'Players tracked simultaneously' },
-      { v: '60',         u: 'K', label: 'Fans per stadium — scale target' }
+      { v: '2 × 4K',     u: '',  label: 'Stadium camera feeds fused in real time' }
     ],
     steps: [
       { n: '01', title: 'Stadium cameras capture',   blurb: 'A multi-camera setup covers the full pitch.' },
-      { n: '02', title: 'AI tracks all 22 players',  blurb: 'Frame by frame, simultaneously, at 96–98% accuracy.' },
+      { n: '02', title: 'AI tracks all 22 players',  blurb: 'Detection, tracking and cross-camera re-identification, frame by frame.' },
       { n: '03', title: 'Identities & stats resolved', blurb: 'Name, number, position and speed per player.' },
       { n: '04', title: 'Overlay hits the phone',    blurb: 'Rendered onto the live camera view in ~0.1s.' }
     ],
@@ -177,7 +177,7 @@ const AI_PROJECTS = [
       { title: 'Value for rights-holders', blurb: 'A data-rich matchday layer unlocking fan engagement, broadcast overlays and premium sponsorship inventory.' }
     ],
     stack: ['Multi-object tracking', 'Player re-identification', 'Homography / pitch calibration', 'Mobile AR', 'Real-time streaming', 'Unity'],
-    scale: 'Built for stadium scale — 60K fans, any smartphone.'
+    scale: 'Two 4K stadium feeds fused into one live metric map of the pitch, streamed to any smartphone.'
   },
   {
     slug: 'avatar-assist',
@@ -258,8 +258,13 @@ const GAMES = [
     tagline: 'Cross-platform obstacle runner — Android & iOS',
     accent: '#22b8f0',
     where: 'Ideofuzion',
-    blurb: 'An obstacle-running game inspired by UIPM Laser Run and Wipeout. Unity state machines drive responsive player control; a custom socket server powers real-time multiplayer, with Facebook friend challenges and leaderboards layered on top.',
+    blurb: 'The official UIPM Obstacle Laser Run game, inspired by the UIPM sport and Wipeout. Unity state machines drive responsive player control; a custom socket server powers real-time multiplayer, with Facebook friend challenges and leaderboards layered on top.',
     stack: ['Unity', 'Socket server', 'State machines', 'Facebook SDK', 'Leaderboards', 'iOS + Android'],
+    shots: ['assets/img/shots/olaser-1.webp', 'assets/img/shots/olaser-2.webp', 'assets/img/shots/olaser-3.webp'],
+    links: [
+      { label: 'Google Play', href: 'https://play.google.com/store/apps/details?id=com.uipm.obstaclelaserrun&hl=en' },
+      { label: 'UIPM Laser Run', href: 'https://www.uipmworld.org/sport/uipm-laser-run' }
+    ],
     videos: []
   },
   {
@@ -269,6 +274,8 @@ const GAMES = [
     where: 'Ideofuzion',
     blurb: 'Core gameplay loops built around Tron and multiple cryptocurrencies for in-game earnings and withdrawals, plus NFT minting and trading and a secure raffles hub — with the blockchain plumbing kept invisible enough to stay frictionless.',
     stack: ['Unity', 'Tron', 'Web3', 'NFT minting', 'Smart contracts', 'Wallet integration'],
+    shots: ['assets/img/shots/gamesfi-1.webp', 'assets/img/shots/gamesfi-2.webp', 'assets/img/shots/gamesfi-3.webp', 'assets/img/shots/gamesfi-4.webp', 'assets/img/shots/gamesfi-5.webp'],
+    portraitShots: true,
     videos: []
   },
   {
@@ -278,6 +285,7 @@ const GAMES = [
     where: 'Ideofuzion',
     blurb: 'A realistic jeep-racing game with advanced vehicle physics, particle effects and NOS boosts across 150+ tracks. Assets delivered through Google Play Asset Delivery, with dynamic biomes synchronised server-side to keep world state consistent.',
     stack: ['Unity', 'Vehicle physics', 'Play Asset Delivery', 'VFX', 'Server sync'],
+    shots: ['assets/img/shots/stuntz-1.webp', 'assets/img/shots/stuntz-2.webp', 'assets/img/shots/stuntz-3.webp', 'assets/img/shots/stuntz-4.webp', 'assets/img/shots/stuntz-5.webp', 'assets/img/shots/stuntz-6.webp', 'assets/img/shots/stuntz-7.webp'],
     videos: []
   },
   {

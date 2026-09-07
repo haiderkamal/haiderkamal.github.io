@@ -69,6 +69,30 @@ files at 100 MB and Pages is not a video host). To compress:
 ffmpeg -i raw-capture.mp4 -vf "scale=1280:-2,fps=30" -c:v libx264 -crf 26        -preset slow -movflags +faststart -c:a aac -b:a 96k assets/video/clip.mp4
 ```
 
+### Adding screenshots
+
+Games take a `shots:` list. One image renders as the card's cover with a
+"N shots" badge; clicking any screenshot opens a lightbox with arrow-key and
+Escape navigation.
+
+```js
+shots: ['assets/img/shots/stuntz-1.webp', 'assets/img/shots/stuntz-2.webp'],
+portraitShots: true,   // phone captures -> a row of phone-shaped frames
+links: [               // optional buttons under the card
+  { label: 'Google Play', href: 'https://play.google.com/...' },
+  { label: 'UIPM Laser Run', href: 'https://www.uipmworld.org/...' }
+]
+```
+
+Convert captures before committing — the raw files are several times larger:
+
+```bash
+# landscape (16:9 gameplay)
+ffmpeg -i shot.jpg -vf "scale=1120:-2:flags=lanczos" -q:v 80 assets/img/shots/name-1.webp
+# portrait (phone captures) — normalise to a common height
+ffmpeg -i shot.jpg -vf "scale=-2:800:flags=lanczos"  -q:v 80 assets/img/shots/name-1.webp
+```
+
 ### Adding a project
 
 Copy any object in `AI_PROJECTS` and edit it. The shape:
