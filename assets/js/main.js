@@ -290,6 +290,7 @@
     modal.classList.add('show');
     document.body.style.overflow = 'hidden';
     $('.modal-close', panel).focus();
+    if (location.hash !== '#' + slug) history.replaceState(null, '', '#' + slug);
   }
 
   function closeModal() {
@@ -301,6 +302,9 @@
     openProject = null;
     setTimeout(() => { panel.innerHTML = ''; }, 520);
     if (lastFocus) lastFocus.focus();
+    if (AI_PROJECTS.some(p => '#' + p.slug === location.hash)) {
+      history.replaceState(null, '', location.pathname + location.search);
+    }
   }
 
   document.addEventListener('click', e => {
@@ -448,6 +452,13 @@
     });
   }
 
+  /* ---------- deep links: /#<slug> opens that case study ---------- */
+  function openFromHash() {
+    const slug = location.hash.slice(1);
+    if (AI_PROJECTS.some(p => p.slug === slug)) openModal(slug);
+  }
+  window.addEventListener('hashchange', openFromHash);
+
   /* ---------- boot ---------- */
   buildMarquee();
   buildProjects();
@@ -459,4 +470,5 @@
   initReveal();
   initMagnetic();
   $('#year').textContent = new Date().getFullYear();
+  openFromHash();
 })();
