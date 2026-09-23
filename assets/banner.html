@@ -38,10 +38,17 @@
     position:absolute;z-index:2;left:50%;top:50%;transform:translate(-50%,-50%);
     text-align:center;width:1240px;
   }
+  /* the text must sit on ink, not on lit points */
+  .copy::before{
+    content:"";position:absolute;z-index:-1;left:-140px;right:-140px;top:-64px;bottom:-56px;
+    background:radial-gradient(ellipse 60% 52% at 50% 50%,
+      rgba(8,9,10,.97) 0%, rgba(8,9,10,.93) 42%, rgba(8,9,10,.72) 66%, rgba(8,9,10,0) 84%);
+  }
   .kicker{
     font-family:"JetBrains Mono",ui-monospace,monospace;font-size:13px;font-weight:500;
-    letter-spacing:.34em;text-transform:uppercase;color:var(--acid);margin:0 0 20px;
+    letter-spacing:.26em;text-transform:uppercase;color:rgba(240,239,236,.66);margin:0 0 18px;
   }
+  .kicker i{font-style:normal;color:var(--acid);opacity:.9;padding:0 .15em}
   .line{
     font-family:"Space Grotesk","Inter",system-ui,sans-serif;font-weight:700;
     font-size:40px;line-height:1.15;letter-spacing:-.035em;color:var(--paper);
@@ -65,11 +72,10 @@
   <canvas id="cloud" width="1584" height="396"></canvas>
   <div class="vignette"></div>
   <div class="copy">
-    <p class="kicker">AI · Computer Vision · Digital Twins · Real-Time 3D</p>
+    <p class="kicker">AI <i>/</i> Computer Vision <i>/</i> Digital Twins <i>/</i> Real-Time 3D</p>
     <p class="line">Systems that run in the real world, <b>at frame rate.</b></p>
     <p class="url">haiderkamal.github.io</p>
   </div>
-  <div class="rule"></div>
 </div>
 
 <script>
@@ -99,7 +105,7 @@
   var cosY = Math.cos(ry), sinY = Math.sin(ry);
   var cosX = Math.cos(rx), sinX = Math.sin(rx);
   var cx = W * 0.5, cy = H * 0.46;
-  var scan = -0.22;
+  var scan = -0.74;
 
   ctx.clearRect(0, 0, W, H);
 
@@ -133,9 +139,8 @@
   // brackets placed in screen space, kept clear of the headline and of the
   // bottom-left corner where the profile photo overlaps
   var boxes = [
-    { x: 1332, y: 132, w: 132, h: 88, label: 'SURFACE 02', conf: '0.96' },
-    { x: 1198, y: 246, w: 104, h: 70, label: 'CLUSTER 01', conf: '0.94' },
-    { x: 196,  y: 118, w: 112, h: 74, label: 'REGION 03',  conf: '0.97' }
+    { x: 1356, y: 286, w: 128, h: 84, label: 'SURFACE 02', conf: '0.96' },
+    { x: 1172, y: 334, w: 98,  h: 64, label: 'CLUSTER 01', conf: '0.94' }
   ];
   ctx.lineWidth = 1;
   ctx.font = '500 10px "JetBrains Mono", ui-monospace, monospace';
