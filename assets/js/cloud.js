@@ -122,7 +122,7 @@
       if (near > 0) { a += near * 0.5; r += near * 1.3; }
 
       if (p.hot || near > 0.45) {
-        ctx.fillStyle = 'rgba(215,255,62,' + Math.min(0.92, a + 0.12).toFixed(3) + ')';
+        ctx.fillStyle = 'rgba(195,107,203,' + Math.min(0.92, a + 0.12).toFixed(3) + ')';
       } else {
         ctx.fillStyle = 'rgba(240,239,236,' + a.toFixed(3) + ')';
       }
@@ -152,7 +152,7 @@
 
       const w = tr.w * p.s, h = tr.h * p.s;
       const x = tr.x - w / 2, y = tr.y - h / 2;
-      const c = 'rgba(215,255,62,' + (fade * 0.85).toFixed(3) + ')';
+      const c = 'rgba(195,107,203,' + (fade * 0.85).toFixed(3) + ')';
       const arm = Math.min(w, h) * 0.26;
 
       ctx.strokeStyle = c;
@@ -165,14 +165,14 @@
       ctx.stroke();
 
       // crosshair at the locked point
-      ctx.strokeStyle = 'rgba(215,255,62,' + (fade * 0.4).toFixed(3) + ')';
+      ctx.strokeStyle = 'rgba(195,107,203,' + (fade * 0.4).toFixed(3) + ')';
       ctx.beginPath();
       ctx.moveTo(tr.x - 4, tr.y); ctx.lineTo(tr.x + 4, tr.y);
       ctx.moveTo(tr.x, tr.y - 4); ctx.lineTo(tr.x, tr.y + 4);
       ctx.stroke();
 
       const tag = tr.label + ' ' + String(tr.id).padStart(2, '0') + '  ' + tr.conf.toFixed(2);
-      ctx.fillStyle = 'rgba(215,255,62,' + (fade * 0.72).toFixed(3) + ')';
+      ctx.fillStyle = 'rgba(195,107,203,' + (fade * 0.72).toFixed(3) + ')';
       ctx.fillText(tag, x, y - 7);
     }
 

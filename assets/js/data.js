@@ -18,7 +18,7 @@ const AI_PROJECTS = [
     tagline: 'AI Surveillance & Loss-Prevention',
     category: 'Computer Vision',
     groups: ['cv'],
-    accent: '#22b8f0',
+    accent: '#35c6f2',
     img: 'assets/img/sentry-vision.webp',
     videos: [
       { type: 'youtube', id: 'NIzQfM4HnCs', label: 'System overview' },
@@ -55,7 +55,7 @@ const AI_PROJECTS = [
     tagline: 'AI Cement Dispatch & Inventory Audit',
     category: 'Computer Vision',
     groups: ['cv'],
-    accent: '#f0a020',
+    accent: '#f2a83f',
     img: 'assets/img/cementiq.webp',
     videos: [{ type: 'youtube', id: '9xdqnXCxKNU', label: 'Dispatch audit walkthrough' }],
     blurb: 'Three cameras per loading bay replace the clipboard: every truck audited on six points and reconciled straight into the ERP, with zero manual tally.',
@@ -89,7 +89,7 @@ const AI_PROJECTS = [
     tagline: 'Pipeline Integrity & Asset Monitoring',
     category: 'Industrial AI',
     groups: ['twin'],
-    accent: '#2fd6a8',
+    accent: '#35d6a2',
     img: 'assets/img/digital-twin-ops.webp',
     videos: [{ type: 'youtube', id: '7zzTy9eEslw', label: 'Pipeline integrity demo' }],
     blurb: 'A live 3D twin of a pipeline network: sensors, autonomous drone inspection and predictive integrity, so failures are found before they happen.',
@@ -123,7 +123,7 @@ const AI_PROJECTS = [
     tagline: '3D Replication & Digital Twin Platform',
     category: '3D Reconstruction',
     groups: ['twin', 'xr'],
-    accent: '#55c2ef',
+    accent: '#6d9ef8',
     img: 'assets/img/vision-3d.webp',
     videos: [{ type: 'youtube', id: 'O6FmJEQ3vJc', label: 'Photoreal twin walkthrough' }],
     blurb: 'Photoreal digital twins from an ordinary camera: a walkthrough video, a drone pass, or a single photograph. Then step inside it in VR.',
@@ -154,7 +154,7 @@ const AI_PROJECTS = [
     tagline: 'Live Stadium AR Platform',
     category: 'AR / Sports Tech',
     groups: ['cv', 'xr'],
-    accent: '#4f9dfb',
+    accent: '#7d74f2',
     img: 'assets/img/immersive-ar.webp',
     videos: [{ type: 'youtube', id: 'NYGCVvzJuAw', label: 'Live stadium AR' }],
     blurb: 'Fans point a phone at the match and see every player’s name, number, position and speed on the real pitch, with 22 players tracked live from stadium cameras.',
@@ -185,7 +185,7 @@ const AI_PROJECTS = [
     tagline: 'Conversational AI Avatars',
     category: 'Conversational AI',
     groups: ['genai'],
-    accent: '#55c2ef',
+    accent: '#ef7bb4',
     img: 'assets/img/avatar-assist.webp',
     videos: [],
     blurb: 'A real-time virtual agent that listens, understands and answers out loud, with a lifelike, lip-synced face, in a one-line embed, running on your own hardware.',
@@ -217,7 +217,7 @@ const AI_PROJECTS = [
     tagline: 'AI-Native EdTech Platform',
     category: 'EdTech / VR',
     groups: ['xr', 'genai'],
-    accent: '#8b7cf0',
+    accent: '#b58bf5',
     img: 'assets/img/accelerator.webp',
     videos: [],
     blurb: 'Trains the four things recruiters screen for (coding, aptitude, interviews, communication) with an AI mentor that coaches instead of spoon-feeding, plus VR interview practice on Meta Quest.',
@@ -242,7 +242,7 @@ const GAMES_FEATURED = {
   slug: 'brawldinos',
   name: 'Brawl Dinos',
   tagline: 'Real-time multiplayer arena brawler, Android',
-  accent: '#f0a020',
+  accent: '#f2a83f',
   videos: [
     { type: 'youtube', id: 'ze9Z9zH86p0', label: 'PvP gameplay', portrait: true, poster: 'assets/img/brawldinos-1.webp' },
     { type: 'youtube', id: 'WgxMhPJlNC0', label: 'Arena match',  portrait: true, poster: 'assets/img/brawldinos-2.webp' }
@@ -256,7 +256,7 @@ const GAMES = [
   {
     name: 'O-Laser Run',
     tagline: 'Cross-platform obstacle runner, Android & iOS',
-    accent: '#22b8f0',
+    accent: '#35c6f2',
     where: 'Ideofuzion',
     blurb: 'The official UIPM Obstacle Laser Run game, inspired by the UIPM sport and Wipeout. Unity state machines drive responsive player control; a custom socket server powers real-time multiplayer, with Facebook friend challenges and leaderboards layered on top.',
     stack: ['Unity', 'Socket server', 'State machines', 'Facebook SDK', 'Leaderboards', 'iOS + Android'],
@@ -270,7 +270,7 @@ const GAMES = [
   {
     name: 'Games-fi',
     tagline: 'Play-to-Earn blockchain platform',
-    accent: '#2fd6a8',
+    accent: '#35d6a2',
     where: 'Ideofuzion',
     blurb: 'Core gameplay loops built around Tron and multiple cryptocurrencies for in-game earnings and withdrawals, plus NFT minting and trading and a secure raffles hub, with the blockchain plumbing kept invisible enough to stay frictionless.',
     stack: ['Unity', 'Tron', 'Web3', 'NFT minting', 'Smart contracts', 'Wallet integration'],
@@ -281,7 +281,7 @@ const GAMES = [
   {
     name: 'Stunt-Z',
     tagline: 'Off-road jeep racing, 150+ tracks',
-    accent: '#f0a020',
+    accent: '#f2a83f',
     where: 'Ideofuzion',
     blurb: 'A realistic jeep-racing game with advanced vehicle physics, particle effects and NOS boosts across 150+ tracks. Assets delivered through Google Play Asset Delivery, with dynamic biomes synchronised server-side to keep world state consistent.',
     stack: ['Unity', 'Vehicle physics', 'Play Asset Delivery', 'VFX', 'Server sync'],
@@ -291,7 +291,7 @@ const GAMES = [
   {
     name: 'Project Zambeel',
     tagline: 'PC open-world AAA, third-person story',
-    accent: '#8b7cf0',
+    accent: '#b58bf5',
     where: 'Alam Digital HQ',
     blurb: 'Led design and development of a GTA-inspired, third-person story-driven open-world game set on a tropical mafia-boss island. Built the dynamic mission and narrative system driving branching story paths, and integrated high-fidelity asset pipelines for AAA-quality visuals.',
     stack: ['Unity', 'Open world', 'Mission system', 'Narrative branching', 'HDRP', 'Blender'],
@@ -300,7 +300,7 @@ const GAMES = [
   {
     name: 'Operation Basalat',
     tagline: 'Team-based multiplayer shooter, Android',
-    accent: '#4f9dfb',
+    accent: '#7d74f2',
     where: 'Coding Cannon',
     blurb: 'A team-based Android shooter where players, as army operatives, coordinate to force militants from a school and rescue children. Real-time client-server networking, objective-driven gameplay loops and AI pathfinding for dynamic combat.',
     stack: ['Unity', 'Client-server', 'AI pathfinding', 'Objective systems', 'Multiplayer'],
@@ -309,7 +309,7 @@ const GAMES = [
   {
     name: 'Valet Parking',
     tagline: 'HD vehicle parking simulator, Android',
-    accent: '#55c2ef',
+    accent: '#6d9ef8',
     where: 'Alam Digital HQ',
     blurb: 'An HD parking simulator with realistic physics and intuitive touch controls, a level-based grading system that scores performance and unlocks challenges, and optimised 3D asset streaming for stable framerates across a wide device range.',
     stack: ['Unity', 'Vehicle physics', 'Asset streaming', 'Memory optimisation', 'Android'],
@@ -353,37 +353,37 @@ const TIMELINE = [
 const SKILLS = [
   {
     title: 'AI & Computer Vision',
-    accent: '#22b8f0',
+    accent: '#35c6f2',
     icon: 'eye',
     items: ['Object detection', 'Multi-object tracking', 'Re-identification', 'OCR / ANPR', 'Action recognition', 'Anomaly detection', 'Pose estimation', 'Real-time inference']
   },
   {
     title: 'Generative & Conversational AI',
-    accent: '#8b7cf0',
+    accent: '#b58bf5',
     icon: 'chat',
     items: ['LLM serving', 'Local / on-prem models', 'RAG', 'Voice agents', 'Speech-to-text', 'Text-to-speech', 'Lip-sync avatars', 'Prompt engineering']
   },
   {
     title: '3D, XR & Digital Twins',
-    accent: '#2fd6a8',
+    accent: '#35d6a2',
     icon: 'cube',
     items: ['Gaussian splatting', 'Photogrammetry', 'Image-to-3D', 'Meta Quest / OpenXR', 'Mobile AR', 'WebGL', 'Blender', 'Digital twin modelling']
   },
   {
     title: 'Game Engineering',
-    accent: '#f0a020',
+    accent: '#f2a83f',
     icon: 'gamepad',
     items: ['Unity3D', 'C#', 'Real-time multiplayer', 'Mirror', 'Authoritative servers', 'PlayFab', 'Vehicle physics', 'State machines', 'Game AI / pathfinding']
   },
   {
     title: 'Platform & Delivery',
-    accent: '#4f9dfb',
+    accent: '#7d74f2',
     icon: 'server',
     items: ['Edge GPU deployment', 'Socket servers', 'ERP / SCADA integration', 'IoT pipelines', 'Play Asset Delivery', 'Android', 'iOS', 'Git'],
   },
   {
     title: 'Blockchain & Web3',
-    accent: '#f0605c',
+    accent: '#f2766f',
     icon: 'link',
     items: ['Tron', 'Smart contracts', 'NFT minting & trading', 'Wallet integration', 'P2E economies']
   }
