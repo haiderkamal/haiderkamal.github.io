@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>LinkedIn banner source</title>
+<!--
+  LinkedIn banner source, 1584 x 396.
+
+  Renders ONE deterministic frame of the hero point cloud (no rAF, fixed T)
+  so a screenshot is reproducible. Open with #clean for the version without
+  the text block.
+
+  Safe zones this respects:
+    - the profile photo overlaps the bottom-left, so nothing important sits
+      below y=250 on the left third
+    - mobile crops to roughly the middle 60%, so the text block is centred
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{ --ink:#08090a; --paper:#f0efec; --dim:#8d8f8b; --acid:#d7ff3e; }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--ink)}
+  .banner{
+    position:relative;width:1584px;height:396px;overflow:hidden;
+    background:var(--ink);
+  }
+  #cloud{position:absolute;inset:0;width:100%;height:100%;z-index:0}
+  .vignette{
+    position:absolute;inset:0;z-index:1;pointer-events:none;
+    background:
+      radial-gradient(60% 150% at 50% 55%, rgba(8,9,10,.88) 0%, rgba(8,9,10,.45) 45%, transparent 75%),
+      linear-gradient(to right, var(--ink) 0%, rgba(8,9,10,.25) 18%, transparent 34%),
+      linear-gradient(to left,  var(--ink) 0%, rgba(8,9,10,.15) 12%, transparent 28%);
+  }
+  .copy{
+    position:absolute;z-index:2;left:50%;top:50%;transform:translate(-50%,-50%);
+    text-align:center;width:1240px;
+  }
+  .kicker{
+    font-family:"JetBrains Mono",ui-monospace,monospace;font-size:13px;font-weight:500;
+    letter-spacing:.34em;text-transform:uppercase;color:var(--acid);margin:0 0 20px;
+  }
+  .line{
+    font-family:"Space Grotesk","Inter",system-ui,sans-serif;font-weight:700;
+    font-size:40px;line-height:1.15;letter-spacing:-.035em;color:var(--paper);
+    margin:0 0 20px;white-space:nowrap;
+  }
+  .line b{font-weight:700;color:var(--acid)}
+  .url{
+    font-family:"JetBrains Mono",ui-monospace,monospace;font-size:14px;letter-spacing:.16em;
+    text-transform:lowercase;color:var(--dim);margin:0;
+  }
+  .rule{
+    position:absolute;z-index:2;left:50%;transform:translateX(-50%);
+    width:120px;height:1px;background:var(--acid);opacity:.5;bottom:52px;
+  }
+  :root:target{}
+  body.clean .copy,body.clean .rule{display:none}
+</style>
+</head>
+<body>
+<div class="banner">
+  <canvas id="cloud" width="1584" height="396"></canvas>
+  <div class="vignette"></div>
+  <div class="copy">
+    <p class="kicker">AI · Computer Vision · Digital Twins · Real-Time 3D</p>
+    <p class="line">Systems that run in the real world, <b>at frame rate.</b></p>
+    <p class="url">haiderkamal.github.io</p>
+  </div>
+  <div class="rule"></div>
+</div>
+
+<script>
+(function () {
+  if (location.hash === '#clean') document.body.classList.add('clean');
+
+  var cv  = document.getElementById('cloud');
+  var ctx = cv.getContext('2d');
+  var W = 1584, H = 396;
+
+  // wider, shallower grid than the site hero: a 4:1 strip reads as a horizon band
+  var COLS = 150, ROWS = 46;
+  var SPAN_X = 2600, SPAN_Z = 1150;
+  var pts = [];
+  for (var i = 0; i < COLS; i++) {
+    for (var j = 0; j < ROWS; j++) {
+      var u = i / (COLS - 1) * 2 - 1;
+      var v = j / (ROWS - 1) * 2 - 1;
+      pts.push({ u:u, v:v, x:u * SPAN_X / 2, z:v * SPAN_Z / 2, sx:0, sy:0, s:0,
+                 hot: ((i * 7 + j * 13) % 19) === 0 });
+    }
+  }
+
+  var T = 3.15;                     // fixed time: the frame is deterministic
+  var FOCAL = 980, DIST = 1050, TILT = -0.62;
+  var ry = 0.10, rx = TILT;
+  var cosY = Math.cos(ry), sinY = Math.sin(ry);
+  var cosX = Math.cos(rx), sinX = Math.sin(rx);
+  var cx = W * 0.5, cy = H * 0.46;
+  var scan = -0.22;
+
+  ctx.clearRect(0, 0, W, H);
+
+  for (var k = 0; k < pts.length; k++) {
+    var p = pts[k];
+    var y = (Math.sin(p.u * 2.6 + T * 0.5) * Math.cos(p.v * 2.1 - T * 0.36) * 74)
+          + Math.sin((p.u + p.v) * 4.1 + T * 0.8) * 16;
+
+    var x1 = p.x * cosY - p.z * sinY;
+    var z1 = p.x * sinY + p.z * cosY;
+    var y1 = y * cosX - z1 * sinX;
+    var z2 = y * sinX + z1 * cosX;
+
+    var s = FOCAL / (FOCAL + z2 + DIST);
+    p.sx = cx + x1 * s; p.sy = cy + y1 * s; p.s = s;
+
+    var near  = 1 - Math.min(1, Math.abs(p.v - scan) / 0.14);
+    var depth = Math.max(0, Math.min(1, (s - 0.34) / 0.34));
+    var a = 0.10 + depth * 0.52;
+    var r = 0.45 + depth * 1.5;
+    if (near > 0) { a += near * 0.45; r += near * 1.2; }
+
+    ctx.fillStyle = (p.hot || near > 0.5)
+      ? 'rgba(215,255,62,' + Math.min(0.9, a + 0.12).toFixed(3) + ')'
+      : 'rgba(240,239,236,' + a.toFixed(3) + ')';
+    ctx.beginPath();
+    ctx.arc(p.sx, p.sy, r, 0, 6.2832);
+    ctx.fill();
+  }
+
+  // brackets placed in screen space, kept clear of the headline and of the
+  // bottom-left corner where the profile photo overlaps
+  var boxes = [
+    { x: 1332, y: 132, w: 132, h: 88, label: 'SURFACE 02', conf: '0.96' },
+    { x: 1198, y: 246, w: 104, h: 70, label: 'CLUSTER 01', conf: '0.94' },
+    { x: 196,  y: 118, w: 112, h: 74, label: 'REGION 03',  conf: '0.97' }
+  ];
+  ctx.lineWidth = 1;
+  ctx.font = '500 10px "JetBrains Mono", ui-monospace, monospace';
+
+  for (var b = 0; b < boxes.length; b++) {
+    var o = boxes[b];
+    var w = o.w, h = o.h, x = o.x - w / 2, yy = o.y - h / 2;
+    var arm = Math.min(w, h) * 0.28;
+
+    ctx.strokeStyle = 'rgba(215,255,62,0.8)';
+    ctx.beginPath();
+    ctx.moveTo(x, yy + arm);          ctx.lineTo(x, yy);            ctx.lineTo(x + arm, yy);
+    ctx.moveTo(x + w - arm, yy);      ctx.lineTo(x + w, yy);        ctx.lineTo(x + w, yy + arm);
+    ctx.moveTo(x + w, yy + h - arm);  ctx.lineTo(x + w, yy + h);    ctx.lineTo(x + w - arm, yy + h);
+    ctx.moveTo(x + arm, yy + h);      ctx.lineTo(x, yy + h);        ctx.lineTo(x, yy + h - arm);
+    ctx.stroke();
+
+    ctx.strokeStyle = 'rgba(215,255,62,0.38)';
+    ctx.beginPath();
+    ctx.moveTo(o.x - 4, o.y); ctx.lineTo(o.x + 4, o.y);
+    ctx.moveTo(o.x, o.y - 4); ctx.lineTo(o.x, o.y + 4);
+    ctx.stroke();
+
+    ctx.fillStyle = 'rgba(215,255,62,0.72)';
+    ctx.fillText(o.label + '  ' + o.conf, x, yy - 7);
+  }
+})();
+</script>
+</body>
+</html>

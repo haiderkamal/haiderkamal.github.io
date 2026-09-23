@@ -1,8 +1,8 @@
 /* ============================================================
    Content source of truth.
-   Edit this file to change the site — nothing else needs touching.
+   Edit this file to change the site. Nothing else needs touching.
 
-   Adding a demo video to a project — `videos` is a list, so a project
+   Adding a demo video to a project. `videos` is a list, so a project
    can carry more than one and the case study gets a clip switcher:
      videos: [{ type: 'youtube', id: 'YOUTUBE_ID', label: 'Overview' }]
      videos: [{ type: 'file', src: 'assets/video/demo.mp4', label: 'Demo' }]
@@ -24,7 +24,7 @@ const AI_PROJECTS = [
       { type: 'youtube', id: 'NIzQfM4HnCs', label: 'System overview' },
       { type: 'youtube', id: 'GhStNbrziKE', label: 'Retail deployment' }
     ],
-    blurb: 'Turns existing CCTV into an always-on analyst — theft, weapons, violence and checkout fraud flagged in real time, with the evidence frame attached.',
+    blurb: 'Turns existing CCTV into an always-on analyst: theft, weapons, violence and checkout fraud flagged in real time, with the evidence frame attached.',
     lede: 'Most sites are already covered by cameras. The problem is that nobody can watch fifty feeds at once, and by the time footage is reviewed the goods are gone. Sentry Vision runs continuous inference across every camera and every checkout lane, recognises the events that actually cost money and put people at risk, and raises an alert in the moment.',
     capabilities: [
       { title: 'Theft',            blurb: 'Shoplifting and concealment spotted on camera.' },
@@ -35,7 +35,7 @@ const AI_PROJECTS = [
       { title: 'Instant Alerts',   blurb: 'Evidence-backed alerts pushed to the response team.' }
     ],
     steps: [
-      { n: '01', title: 'Cameras & checkout',      blurb: 'Every feed ingested, all the time — including POS lanes.' },
+      { n: '01', title: 'Cameras & checkout',      blurb: 'Every feed ingested, all the time, including POS lanes.' },
       { n: '02', title: 'AI vision analyses',      blurb: 'Inference runs on-site. No footage is uploaded.' },
       { n: '03', title: 'Threat / fraud detected', blurb: 'Event classified: theft, weapon, violence or fraud.' },
       { n: '04', title: 'Alert + track suspect',   blurb: 'Alert fires with the evidence frame; tracking continues.' }
@@ -44,10 +44,10 @@ const AI_PROJECTS = [
       { title: 'Cuts shrinkage',       blurb: 'Theft and checkout fraud stopped before goods leave.' },
       { title: 'Safety first',         blurb: 'Early warning on weapons and violence protects staff.' },
       { title: 'Faster response',      blurb: 'Guards act on live evidence, not after the fact.' },
-      { title: 'Private & on-premise', blurb: 'Video stays on-site — no cloud, no per-camera fees.' }
+      { title: 'Private & on-premise', blurb: 'Video stays on-site: no cloud, no per-camera fees.' }
     ],
     stack: ['Real-time inference', 'Object detection', 'Multi-camera re-ID', 'Pose / action recognition', 'Edge GPU', 'On-premise'],
-    scale: 'Multi-camera on-premise deployment on commodity GPUs — no cloud inference, no video leaving the site.'
+    scale: 'Multi-camera on-premise deployment on commodity GPUs: no cloud inference, and no video leaving the site.'
   },
   {
     slug: 'cementiq',
@@ -59,7 +59,7 @@ const AI_PROJECTS = [
     img: 'assets/img/cementiq.webp',
     videos: [{ type: 'youtube', id: '9xdqnXCxKNU', label: 'Dispatch audit walkthrough' }],
     blurb: 'Three cameras per loading bay replace the clipboard: every truck audited on six points and reconciled straight into the ERP, with zero manual tally.',
-    lede: 'Cement dispatch is still audited the way it was decades ago — a person at the bay counting bags onto a truck and writing a number on a tally sheet. That handwritten number is the one the ERP trusts, and it is exactly what pilferage, short-loading and honest miscounts quietly erode. CementIQ replaces the clipboard with three AI cameras per bay.',
+    lede: 'Cement dispatch is still audited the way it was decades ago: a person at the bay counting bags onto a truck and writing a number on a tally sheet. That handwritten number is the one the ERP trusts, and it is exactly what pilferage, short-loading and honest miscounts quietly erode. CementIQ replaces the clipboard with three AI cameras per bay.',
     capabilities: [
       { title: 'Bag Count',    blurb: 'Every bag counted on the conveyor.' },
       { title: 'Cement Brand', blurb: 'Confirms the correct brand was loaded.' },
@@ -76,7 +76,7 @@ const AI_PROJECTS = [
     ],
     impact: [
       { title: 'Stops pilferage',   blurb: 'Bags thrown off and short-loading caught in real time.' },
-      { title: 'Accurate counts',   blurb: 'Every bag matched to the tally sheet — disputes end.' },
+      { title: 'Accurate counts',   blurb: 'Every bag matched to the tally sheet, so disputes end.' },
       { title: 'Zero manual tally', blurb: 'The whole dispatch audit runs automatically, 24/7.' },
       { title: 'ERP-integrated',    blurb: 'Verified data flows into the ERP already in use.' }
     ],
@@ -92,7 +92,7 @@ const AI_PROJECTS = [
     accent: '#2fd6a8',
     img: 'assets/img/digital-twin-ops.webp',
     videos: [{ type: 'youtube', id: '7zzTy9eEslw', label: 'Pipeline integrity demo' }],
-    blurb: 'A live 3D twin of a pipeline network — sensors, autonomous drone inspection and predictive integrity, so failures are found before they happen.',
+    blurb: 'A live 3D twin of a pipeline network: sensors, autonomous drone inspection and predictive integrity, so failures are found before they happen.',
     lede: 'Real-time sensors, autonomous AI drone inspection and predictive integrity modelling, combined into one mirrored 3D model of the whole network. Every pipe carries a health score, every anomaly raises an early warning, and maintenance is scheduled by prediction rather than by breakdown.',
     capabilities: [
       { title: 'Live Sensors',           blurb: 'Pressure, flow, temperature, corrosion and more.' },
@@ -109,7 +109,7 @@ const AI_PROJECTS = [
       { n: '04', title: 'Work order raised',    blurb: 'Scheduled by prediction, not by breakdown.' }
     ],
     impact: [
-      { title: 'Prevent failures',      blurb: 'Leaks and corrosion caught early — avoiding unsafe incidents.' },
+      { title: 'Prevent failures',      blurb: 'Leaks and corrosion caught early, avoiding unsafe incidents.' },
       { title: 'Less downtime',         blurb: 'Fix by prediction, not by breakdown. Keep flow running.' },
       { title: 'Lower inspection cost', blurb: 'AI drones replace slow, risky manual field checks.' },
       { title: 'Extend asset life',     blurb: 'Condition-based upkeep gets more years from every pipe.' }
@@ -126,24 +126,24 @@ const AI_PROJECTS = [
     accent: '#55c2ef',
     img: 'assets/img/vision-3d.webp',
     videos: [{ type: 'youtube', id: 'O6FmJEQ3vJc', label: 'Photoreal twin walkthrough' }],
-    blurb: 'Photoreal digital twins from an ordinary camera — a walkthrough video, a drone pass, or a single photograph. Then step inside it in VR.',
-    lede: 'Vision 3D rebuilds the real world as a photorealistic digital twin — a factory floor, a showroom, a property, a product — captured with an ordinary camera rather than a laser scanner. The differentiator is the one-shot path: where only a single photograph exists, the image-to-3D engine still produces a full model. The result opens in a browser, on a phone, in AR, or at life size in VR.',
+    blurb: 'Photoreal digital twins from an ordinary camera: a walkthrough video, a drone pass, or a single photograph. Then step inside it in VR.',
+    lede: 'Vision 3D rebuilds the real world as a photorealistic digital twin (a factory floor, a showroom, a property, a product) captured with an ordinary camera rather than a laser scanner. The differentiator is the one-shot path: where only a single photograph exists, the image-to-3D engine still produces a full model. The result opens in a browser, on a phone, in AR, or at life size in VR.',
     metrics: [
-      { v: '1',    u: ' photo', label: 'Minimum input — one image becomes a full 3D model' },
+      { v: '1',    u: ' photo', label: 'Minimum input: one image becomes a full 3D model' },
       { v: '60',   u: 'fps',    label: 'Real-time photoreal walkthrough, not a slideshow' },
       { v: '0',    u: '',       label: 'Specialist scanning hardware required' },
       { v: 'Same', u: '-day',   label: 'Capture in the morning, twin delivered the same day' }
     ],
     steps: [
-      { n: '01', title: 'Capture',      blurb: 'A walkthrough video, a drone pass — or one still image.' },
+      { n: '01', title: 'Capture',      blurb: 'A walkthrough video, a drone pass, or one still image.' },
       { n: '02', title: 'Reconstruct',  blurb: 'AI resolves shape, depth, colour and real light into a 3D scene.' },
-      { n: '03', title: 'Digital Twin', blurb: 'A measurable, versioned replica — revisit any date, any angle.' },
+      { n: '03', title: 'Digital Twin', blurb: 'A measurable, versioned replica: revisit any date, any angle.' },
       { n: '04', title: 'Step Inside',  blurb: 'Immerse at life size in VR, or open on web, phone or AR.' }
     ],
     impact: [
-      { title: 'Spaces, replicated exactly',     blurb: 'Sites, plants, showrooms and properties become twins with true light and material — accurate enough to inspect and review remotely.' },
+      { title: 'Spaces, replicated exactly',     blurb: 'Sites, plants, showrooms and properties become twins with true light and material, accurate enough to inspect and review remotely.' },
       { title: 'One shot, one photo, one model', blurb: 'A single image is enough. Catalogue products and assets that can never be re-shot still become 3D.' },
-      { title: 'Step inside it — in full VR',    blurb: 'Walk the twin at life size to inspect a plant, tour a property or train a team. Also runs on any browser, phone or AR device.' }
+      { title: 'Step inside it, in full VR',    blurb: 'Walk the twin at life size to inspect a plant, tour a property or train a team. Also runs on any browser, phone or AR device.' }
     ],
     stack: ['Gaussian splatting', 'Photogrammetry', 'Image-to-3D', 'WebGL', 'VR / AR delivery', 'Unity'],
     scale: 'Delivered to web, VR and AR from a single capture.'
@@ -157,10 +157,10 @@ const AI_PROJECTS = [
     accent: '#4f9dfb',
     img: 'assets/img/immersive-ar.webp',
     videos: [{ type: 'youtube', id: 'NYGCVvzJuAw', label: 'Live stadium AR' }],
-    blurb: 'Fans point a phone at the match and see every player’s name, number, position and speed on the real pitch — 22 players tracked live from stadium cameras.',
-    lede: 'A multi-camera vision pipeline detects, tracks and identifies all twenty-two players frame by frame, resolves their stats, and pushes the result onto the fan’s live camera view in about a tenth of a second. No operators, no manual tagging, no delay — and a data-rich matchday layer that unlocks new broadcast overlays and premium sponsorship inventory.',
+    blurb: 'Fans point a phone at the match and see every player’s name, number, position and speed on the real pitch, with 22 players tracked live from stadium cameras.',
+    lede: 'A multi-camera vision pipeline detects, tracks and identifies all twenty-two players frame by frame, resolves their stats, and pushes the result onto the fan’s live camera view in about a tenth of a second. No operators, no manual tagging, no delay, and a data-rich matchday layer that unlocks new broadcast overlays and premium sponsorship inventory.',
     metrics: [
-      { v: '96–98', u: '%', label: 'Detection accuracy on the merged two-camera output — 80–92% single-camera' },
+      { v: '96-98', u: '%', label: 'Detection accuracy on the merged two-camera output, 80-92% single-camera' },
       { v: '~0.1',       u: 's', label: 'Near-instant, real-time overlay latency' },
       { v: '22',         u: '',  label: 'Players tracked simultaneously' },
       { v: '2 × 4K',     u: '',  label: 'Stadium camera feeds fused in real time' }
@@ -172,8 +172,8 @@ const AI_PROJECTS = [
       { n: '04', title: 'Overlay hits the phone',    blurb: 'Rendered onto the live camera view in ~0.1s.' }
     ],
     impact: [
-      { title: 'A new way to watch',       blurb: 'Point a phone at the pitch and see live player names, numbers and stats floating over the real match — turning every seat into the best seat.' },
-      { title: 'AI vision, in real time',  blurb: 'Stadium cameras and AI detect, track and identify every player automatically — no operators, no manual tagging, no delay.' },
+      { title: 'A new way to watch',       blurb: 'Point a phone at the pitch and see live player names, numbers and stats floating over the real match, turning every seat into the best seat.' },
+      { title: 'AI vision, in real time',  blurb: 'Stadium cameras and AI detect, track and identify every player automatically: no operators, no manual tagging, no delay.' },
       { title: 'Value for rights-holders', blurb: 'A data-rich matchday layer unlocking fan engagement, broadcast overlays and premium sponsorship inventory.' }
     ],
     stack: ['Multi-object tracking', 'Player re-identification', 'Homography / pitch calibration', 'Mobile AR', 'Real-time streaming', 'Unity'],
@@ -188,16 +188,16 @@ const AI_PROJECTS = [
     accent: '#55c2ef',
     img: 'assets/img/avatar-assist.webp',
     videos: [],
-    blurb: 'A real-time virtual agent that listens, understands and answers out loud — with a lifelike, lip-synced face, in a one-line embed, running on your own hardware.',
+    blurb: 'A real-time virtual agent that listens, understands and answers out loud, with a lifelike, lip-synced face, in a one-line embed, running on your own hardware.',
     lede: 'Chat widgets answer questions. They don’t hold attention, they don’t serve a customer who would rather speak than type, and they never feel like your brand. AvatarAssist gives the interaction a face and a voice: a customer speaks in their own language and a lip-synced avatar answers out loud in about two seconds. Every stage of the loop runs on the client’s own hardware.',
     metrics: [
-      { v: '~2',   u: 's',     label: 'Reply speed — a live, natural conversation' },
+      { v: '~2',   u: 's',     label: 'Reply speed: a live, natural conversation' },
       { v: '24/7', u: '',      label: 'Always-on agent, no wait times or queues' },
       { v: '1',    u: '-line', label: 'Embeds into any website or app' },
-      { v: '100',  u: '%',     label: 'Private, on-premise AI — data never leaves' }
+      { v: '100',  u: '%',     label: 'Private, on-premise AI: data never leaves' }
     ],
     steps: [
-      { n: '01', title: 'Listens',       blurb: 'The customer speaks or types — in their own language.' },
+      { n: '01', title: 'Listens',       blurb: 'The customer speaks or types, in their own language.' },
       { n: '02', title: 'Understands',   blurb: 'The model grasps intent and forms an on-brand reply.' },
       { n: '03', title: 'Speaks',        blurb: 'The answer is voiced in a natural, human-sounding voice.' },
       { n: '04', title: 'Comes to life', blurb: 'A talking avatar replies on screen, lips perfectly in sync.' }
@@ -220,8 +220,8 @@ const AI_PROJECTS = [
     accent: '#8b7cf0',
     img: 'assets/img/accelerator.webp',
     videos: [],
-    blurb: 'Trains the four things recruiters screen for — coding, aptitude, interviews, communication — with an AI mentor that coaches instead of spoon-feeding, plus VR interview practice on Meta Quest.',
-    lede: 'Colleges are measured on placements, but the skills recruiters screen for are trained in four different places, if at all. Accelerator puts all four in one platform, adds an AI mentor built to coach rather than answer, gives students VR interview practice with an avatar that speaks and listens, and reduces the whole picture to a single Placement-Readiness score. Every model runs locally on the institution’s own machines — private, and with no per-student inference bill.',
+    blurb: 'Trains the four things recruiters screen for (coding, aptitude, interviews, communication) with an AI mentor that coaches instead of spoon-feeding, plus VR interview practice on Meta Quest.',
+    lede: 'Colleges are measured on placements, but the skills recruiters screen for are trained in four different places, if at all. Accelerator puts all four in one platform, adds an AI mentor built to coach rather than answer, gives students VR interview practice with an avatar that speaks and listens, and reduces the whole picture to a single Placement-Readiness score. Every model runs locally on the institution’s own machines: private, and with no per-student inference bill.',
     metrics: [
       { v: '4',   u: '',  label: 'Core skill areas trained in one hub' },
       { v: '5',   u: '',  label: 'Immersive VR training scenarios' },
@@ -230,18 +230,18 @@ const AI_PROJECTS = [
     ],
     impact: [
       { title: 'Web Training Hub',          blurb: 'Coding, aptitude, interviews and communication in one place, with an AI mentor that guides students to the answer and never hands it over.' },
-      { title: 'Immersive VR — Meta Quest', blurb: 'Students practise interviews and real-world scenarios with an AI avatar that speaks and listens — the closest thing to the real moment.' },
+      { title: 'Immersive VR on Meta Quest', blurb: 'Students practise interviews and real-world scenarios with an AI avatar that speaks and listens, the closest thing to the real moment.' },
       { title: 'AI Avatar Tutor',           blurb: 'Scalable, on-demand video lectures delivered to every headset and screen. Produced once, reaching unlimited students.' }
     ],
     stack: ['Local LLM serving', 'Voice agents', 'Meta Quest / OpenXR', 'Unity', 'Avatar generation', 'Assessment scoring'],
-    scale: 'Runs entirely on institution hardware — no per-student cost.'
+    scale: 'Runs entirely on institution hardware, with no per-student cost.'
   }
 ];
 
 const GAMES_FEATURED = {
   slug: 'brawldinos',
   name: 'Brawl Dinos',
-  tagline: 'Real-time multiplayer arena brawler — Android',
+  tagline: 'Real-time multiplayer arena brawler, Android',
   accent: '#f0a020',
   videos: [
     { type: 'youtube', id: 'ze9Z9zH86p0', label: 'PvP gameplay', portrait: true, poster: 'assets/img/brawldinos-1.webp' },
@@ -255,7 +255,7 @@ const GAMES_FEATURED = {
 const GAMES = [
   {
     name: 'O-Laser Run',
-    tagline: 'Cross-platform obstacle runner — Android & iOS',
+    tagline: 'Cross-platform obstacle runner, Android & iOS',
     accent: '#22b8f0',
     where: 'Ideofuzion',
     blurb: 'The official UIPM Obstacle Laser Run game, inspired by the UIPM sport and Wipeout. Unity state machines drive responsive player control; a custom socket server powers real-time multiplayer, with Facebook friend challenges and leaderboards layered on top.',
@@ -272,7 +272,7 @@ const GAMES = [
     tagline: 'Play-to-Earn blockchain platform',
     accent: '#2fd6a8',
     where: 'Ideofuzion',
-    blurb: 'Core gameplay loops built around Tron and multiple cryptocurrencies for in-game earnings and withdrawals, plus NFT minting and trading and a secure raffles hub — with the blockchain plumbing kept invisible enough to stay frictionless.',
+    blurb: 'Core gameplay loops built around Tron and multiple cryptocurrencies for in-game earnings and withdrawals, plus NFT minting and trading and a secure raffles hub, with the blockchain plumbing kept invisible enough to stay frictionless.',
     stack: ['Unity', 'Tron', 'Web3', 'NFT minting', 'Smart contracts', 'Wallet integration'],
     shots: ['assets/img/shots/gamesfi-1.webp', 'assets/img/shots/gamesfi-2.webp', 'assets/img/shots/gamesfi-3.webp', 'assets/img/shots/gamesfi-4.webp', 'assets/img/shots/gamesfi-5.webp'],
     portraitShots: true,
@@ -280,7 +280,7 @@ const GAMES = [
   },
   {
     name: 'Stunt-Z',
-    tagline: 'Off-road jeep racing — 150+ tracks',
+    tagline: 'Off-road jeep racing, 150+ tracks',
     accent: '#f0a020',
     where: 'Ideofuzion',
     blurb: 'A realistic jeep-racing game with advanced vehicle physics, particle effects and NOS boosts across 150+ tracks. Assets delivered through Google Play Asset Delivery, with dynamic biomes synchronised server-side to keep world state consistent.',
@@ -290,7 +290,7 @@ const GAMES = [
   },
   {
     name: 'Project Zambeel',
-    tagline: 'PC open-world AAA — third-person story',
+    tagline: 'PC open-world AAA, third-person story',
     accent: '#8b7cf0',
     where: 'Alam Digital HQ',
     blurb: 'Led design and development of a GTA-inspired, third-person story-driven open-world game set on a tropical mafia-boss island. Built the dynamic mission and narrative system driving branching story paths, and integrated high-fidelity asset pipelines for AAA-quality visuals.',
@@ -299,16 +299,16 @@ const GAMES = [
   },
   {
     name: 'Operation Basalat',
-    tagline: 'Team-based multiplayer shooter — Android',
+    tagline: 'Team-based multiplayer shooter, Android',
     accent: '#4f9dfb',
     where: 'Coding Cannon',
-    blurb: 'A team-based Android shooter where players, as army operatives, coordinate to force militants from a school and rescue children. Real-time client–server networking, objective-driven gameplay loops and AI pathfinding for dynamic combat.',
-    stack: ['Unity', 'Client–server', 'AI pathfinding', 'Objective systems', 'Multiplayer'],
+    blurb: 'A team-based Android shooter where players, as army operatives, coordinate to force militants from a school and rescue children. Real-time client-server networking, objective-driven gameplay loops and AI pathfinding for dynamic combat.',
+    stack: ['Unity', 'Client-server', 'AI pathfinding', 'Objective systems', 'Multiplayer'],
     videos: []
   },
   {
     name: 'Valet Parking',
-    tagline: 'HD vehicle parking simulator — Android',
+    tagline: 'HD vehicle parking simulator, Android',
     accent: '#55c2ef',
     where: 'Alam Digital HQ',
     blurb: 'An HD parking simulator with realistic physics and intuitive touch controls, a level-based grading system that scores performance and unlocks challenges, and optimised 3D asset streaming for stable framerates across a wide device range.',
@@ -321,28 +321,28 @@ const ALSO_SHIPPED = ['Rush Hour Run', 'Pakdam Pakdai', 'Space Shooter', "Hold'e
 
 const TIMELINE = [
   {
-    when: 'May 2023 — Present',
-    role: 'Senior Engineer — AI, Vision & Immersive Systems',
+    when: 'May 2023 to Present',
+    role: 'Senior AI & Computer Vision Engineer',
     where: 'Ideofuzion · Islamabad, Pakistan',
-    blurb: 'Joined as Sr. Game Developer and moved into AI. Now build and ship production computer-vision, digital-twin and conversational-AI products — Sentry Vision, CementIQ, Digital Twin Ops, Vision 3D, Immersive AR, AvatarAssist and Accelerator — most of them deployed on-premise, where the video and the data never leave the client site.',
+    blurb: 'Joined as Sr. Game Developer and moved into AI. Now build and ship production computer-vision, digital-twin and conversational-AI products: Sentry Vision, CementIQ, Digital Twin Ops, Vision 3D, Immersive AR, AvatarAssist and Accelerator. Most are deployed on-premise, where the video and the data never leave the client site.',
     tags: ['Computer Vision', 'Digital Twins', 'LLM / Voice agents', 'AR / VR', 'On-premise AI', 'Unity']
   },
   {
-    when: 'Sep 2021 — Mar 2023',
+    when: 'Sep 2021 to Mar 2023',
     role: 'Game Developer',
     where: 'Alam Digital HQ · Rawalpindi, Pakistan',
     blurb: 'Led design and development of Project Zambeel, a PC open-world AAA title, and shipped Valet Parking plus a run of Android games. Owned mission and narrative systems, asset pipelines and performance optimisation.',
     tags: ['Unity', 'Open world', 'Narrative systems', 'Optimisation', 'Blender']
   },
   {
-    when: 'Jan 2017 — Sep 2021',
+    when: 'Jan 2017 to Sep 2021',
     role: 'Game Developer',
     where: 'Coding Cannon',
-    blurb: 'Engineered Operation Basalat, a team-based Android multiplayer shooter, with real-time client–server networking, objective-driven gameplay and AI pathfinding — alongside a long tail of independent Android titles.',
+    blurb: 'Engineered Operation Basalat, a team-based Android multiplayer shooter, with real-time client-server networking, objective-driven gameplay and AI pathfinding, alongside a long tail of independent Android titles.',
     tags: ['Unity', 'Multiplayer', 'Networking', 'Game AI', 'C#']
   },
   {
-    when: 'Sep 2020 — Mar 2022',
+    when: 'Sep 2020 to Mar 2022',
     role: 'MS, Computer Software Engineering',
     where: 'National University of Sciences and Technology (NUST) · Gold Medalist',
     blurb: 'Master of Science in Computer Software Engineering. Graduated as a Gold Medalist.',

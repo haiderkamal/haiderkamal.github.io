@@ -1,5 +1,5 @@
 /* ============================================================
-   Haider Kamal — portfolio behaviour
+   Haider Kamal portfolio behaviour
    Renders every section from assets/js/data.js, then wires
    nav, filters, modal, split-text reveals and pointer effects.
    ============================================================ */
@@ -118,7 +118,7 @@
         'data-groups="' + p.groups.join(' ') + '" aria-haspopup="dialog">' +
         '<span class="card-idx">' + pad(i + 1) + ' / ' + pad(AI_PROJECTS.length) + '</span>' +
         '<div class="card-media">' +
-          '<img src="' + p.img + '" alt="' + p.name + ' — ' + p.tagline + '" loading="lazy" decoding="async">' +
+          '<img src="' + p.img + '" alt="' + p.name + ': ' + p.tagline + '" loading="lazy" decoding="async">' +
           '<span class="card-cat">' + p.category + '</span>' +
           (p.videos.length ? '<span class="card-demo">' + svgFill('play') +
             (p.videos.length > 1 ? p.videos.length + ' demos' : 'Demo') + '</span>' : '') +
@@ -257,7 +257,7 @@
         : '') +
       '<div class="m-body" style="--c:' + p.accent + '">' +
         '<h3 id="modal-title">' + p.name + '</h3>' +
-        '<div class="m-tag">' + p.tagline + ' — ' + p.category + '</div>' +
+        '<div class="m-tag">' + p.tagline + ' · ' + p.category + '</div>' +
         '<p class="m-lede">' + p.lede + '</p>';
 
     if (p.metrics) {
@@ -344,7 +344,7 @@
 
   function lbRender() {
     $('#lb-img').src = lbShots[lbAt];
-    $('#lb-img').alt = lbTitle + ' — screenshot ' + (lbAt + 1);
+    $('#lb-img').alt = lbTitle + ' screenshot ' + (lbAt + 1);
     $('#lb-cap').textContent = lbTitle;
     $('#lb-n').textContent = pad(lbAt + 1) + ' / ' + pad(lbShots.length);
     lb.classList.toggle('single', lbShots.length < 2);
