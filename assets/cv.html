@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Haider Kamal - CV</title>
+<!--
+  Print source for assets/Haider-Kamal-CV.pdf.
+  Render:  node scripts/build-cv.js   (headless Chrome -> A4 PDF)
+
+  Single column on purpose: applicant tracking systems parse one column
+  reliably and mangle two. All real text, no images, so it stays searchable.
+  Accent is the tie purple at its true value (#6E3276) rather than the lifted
+  #C36BCB used on the dark site, which would be illegible on white.
+
+  Each .page must stay within 297mm or the PDF gains a page. After editing,
+  rebuild and check the page count the script prints.
+
+  Keep letter-spacing on .role and h2 at or below .10em. Above roughly .11em
+  Chrome writes each glyph at its own position, the PDF text layer comes out as
+  "E X P E R I E N C E", and applicant tracking systems can no longer find the
+  section headings.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#16131a; --body:#33303a; --soft:#6b6675; --hair:#ddd9e2;
+    --accent:#6e3276; --paper:#ffffff;
+    --sans:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+    --disp:"Space Grotesk","Inter",sans-serif;
+    --mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  @page{ size:A4; margin:0; }
+  html,body{margin:0;padding:0;background:#f2f0f4}
+  body{
+    font-family:var(--sans);font-size:9.15pt;line-height:1.4;color:var(--body);
+    -webkit-font-smoothing:antialiased;
+  }
+  .page{
+    width:210mm;height:297mm;background:var(--paper);margin:0 auto;
+    padding:12mm 15mm 11mm;position:relative;overflow:hidden;
+  }
+  .page + .page{margin-top:6mm}
+  @media print{ .page{margin:0} .page + .page{margin-top:0} }
+
+  a{color:inherit;text-decoration:none}
+
+  /* ---------- header ---------- */
+  header{border-bottom:2px solid var(--accent);padding-bottom:3mm;margin-bottom:4mm}
+  .name{
+    font-family:var(--disp);font-weight:700;font-size:23pt;letter-spacing:-.025em;
+    color:var(--ink);line-height:1;margin:0 0 1.4mm;
+  }
+  .role{
+    font-family:var(--mono);font-size:8.6pt;letter-spacing:.09em;text-transform:uppercase;
+    color:var(--accent);margin:0 0 2.6mm;font-weight:500;
+  }
+  .contact{display:flex;flex-wrap:wrap;gap:1mm 3.4mm;font-size:8.4pt;color:var(--soft)}
+  .contact b{font-weight:500;color:var(--body)}
+
+  /* ---------- sections ---------- */
+  h2{
+    font-family:var(--mono);font-size:8pt;font-weight:500;letter-spacing:.09em;
+    text-transform:uppercase;color:var(--accent);margin:0 0 2.3mm;
+    padding-bottom:1mm;border-bottom:1px solid var(--hair);
+  }
+  section{margin-bottom:3.6mm}
+  .lede{font-size:9.4pt;line-height:1.5;color:var(--body);margin:0}
+  .lede b{color:var(--ink);font-weight:600}
+
+  /* ---------- skills ---------- */
+  .skills{display:grid;grid-template-columns:32mm 1fr;gap:1.1mm 4mm;font-size:8.7pt;line-height:1.36}
+  .skills dt{font-weight:600;color:var(--ink)}
+  .skills dd{margin:0;color:var(--body)}
+
+  /* ---------- roles ---------- */
+  .role-block{margin-bottom:3.6mm;break-inside:avoid}
+  .role-block:last-child{margin-bottom:0}
+  .rh{display:flex;justify-content:space-between;align-items:baseline;gap:4mm;margin-bottom:.5mm}
+  .rh h3{font-family:var(--disp);font-size:10.6pt;font-weight:600;color:var(--ink);margin:0;letter-spacing:-.012em}
+  .rh .when{font-family:var(--mono);font-size:8pt;color:var(--soft);white-space:nowrap}
+  .rsub{font-size:8.4pt;color:var(--soft);margin:0 0 1.2mm;font-style:italic}
+  ul{margin:0;padding-left:4mm;list-style:none}
+  li{position:relative;margin-bottom:1.1mm}
+  li::before{
+    content:"";position:absolute;left:-3.3mm;top:1.5mm;
+    width:1.2mm;height:1.2mm;background:var(--accent);border-radius:50%;
+  }
+  li b{color:var(--ink);font-weight:600}
+  li .m{font-family:var(--mono);font-size:8.3pt;color:var(--accent);font-weight:500}
+  .proj{font-weight:600;color:var(--ink)}
+
+  /* ---------- compact product grid ---------- */
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5mm 6mm}
+  .grid div{font-size:8.7pt;line-height:1.38}
+  .grid b{color:var(--ink);font-weight:600;display:block}
+
+  .edu{display:flex;justify-content:space-between;align-items:baseline;gap:4mm}
+  .edu b{color:var(--ink);font-weight:600;font-size:9.8pt}
+  .edu .when{font-family:var(--mono);font-size:8pt;color:var(--soft);white-space:nowrap}
+
+  .foot{
+    position:absolute;left:15mm;right:15mm;bottom:6mm;
+    display:flex;justify-content:space-between;
+    font-family:var(--mono);font-size:7.2pt;color:#9b96a3;
+    border-top:1px solid var(--hair);padding-top:1.8mm;
+  }
+</style>
+</head>
+<body>
+
+<!-- ================= PAGE 1 ================= -->
+<div class="page">
+  <header>
+    <p class="name">Haider Kamal</p>
+    <p class="role">AI &amp; Computer Vision Engineer</p>
+    <div class="contact">
+      <span><b>haiderkamal.developer@gmail.com</b></span>
+      <span>· haiderkamal.github.io</span>
+      <span>· linkedin.com/in/haiderkamal-598596217</span>
+      <span>· github.com/haiderkamal</span>
+      <span>· Islamabad, Pakistan (open to remote)</span>
+    </div>
+  </header>
+
+  <section>
+    <h2>Profile</h2>
+    <p class="lede">Engineer building <b>production computer-vision and real-time AI systems</b> that run on-premise, at frame rate, in front of real users: multi-camera surveillance, industrial inspection, live stadium player tracking, digital twins and conversational avatars. Nine years shipping Unity games and authoritative multiplayer before that, which is why the AI work holds a frame budget.</p>
+  </section>
+
+  <section>
+    <h2>Core Skills</h2>
+    <dl class="skills">
+      <dt>Computer Vision</dt>
+      <dd>Object detection (YOLO), multi-object tracking (BoTSORT), appearance re-identification, pose estimation, action recognition, OCR, homography calibration, super-resolution</dd>
+      <dt>AI &amp; ML</dt>
+      <dd>PyTorch, TensorRT FP16, ONNX Runtime, vision-language models, local LLM serving, fine-tuning, speech-to-text and text-to-speech</dd>
+      <dt>Systems</dt>
+      <dd>Real-time pipelines, GPU batching and scheduling, hardware decode, latency budgeting, benchmark design, Docker Compose, Redis, WebSocket gateways, FastAPI, on-premise deployment</dd>
+      <dt>3D, XR &amp; Games</dt>
+      <dd>Unity3D, Gaussian splatting, photogrammetry, image-to-3D, Meta Quest / OpenXR, mobile AR, authoritative multiplayer servers, Blender</dd>
+      <dt>Languages</dt>
+      <dd>Python, C#, TypeScript / Node.js, SQL</dd>
+    </dl>
+  </section>
+
+  <section>
+    <h2>Experience</h2>
+    <div class="role-block">
+      <div class="rh">
+        <h3>AI &amp; Computer Vision Engineer - Ideofuzion</h3>
+        <span class="when">May 2023 - Present</span>
+      </div>
+      <p class="rsub">Islamabad, Pakistan. Joined as Sr. Game Developer and moved into applied AI.</p>
+      <ul>
+        <li><span class="proj">Sentry Vision, on-premise AI surveillance.</span> Designed and built a multi-camera theft-detection system running <b>8-10 RTSP cameras in real time on a $200-class used GPU</b>, with no cloud inference and no video leaving the site.</li>
+        <li>Architected a <b>two-stage alert pipeline</b>: sub-second pose and behaviour heuristics raise the candidate, a local vision-language model confirms it seconds later. Chosen after benchmarking showed a <span class="m">0.87 inference/s</span> VLM ceiling made per-frame model calls impossible at any camera count.</li>
+        <li>Cut VLM verification cost <span class="m">~97%</span> (785 triggers down to 22-69 verifications, measured over a 10-minute 9-camera soak) by grouping detections into episodes with a sliding rejoin window and scene-cut detection.</li>
+        <li>Built a GPU benchmark harness ramping synthetic camera fleets against decode, latency and queue-depth gates. It <b>disproved the team's CPU-bound assumption</b>: decode held 60/60 fps at 30 cameras while GPU pose saturated at ~26, which rewrote the hardware costing model and caught three deployment bugs before install.</li>
+        <li>Eliminated hallucinated weapon detections by re-asking the model a binary question on a zoomed crop and cross-checking against pose evidence: open-ended prompts invented knives from phones, binary framing did not. Also root-caused a missed sub-3s alert target (median <span class="m">6.75s</span>) to a serial verify queue and whole-file JSON persistence, not inference.</li>
+
+        <li style="margin-top:2.2mm"><span class="proj">Immersive AR, live stadium player tracking.</span> Built and deployed the server-side CV pipeline: two 4K RTSP feeds through YOLO detection on TensorRT FP16, BoTSORT tracking with appearance re-ID, homography pitch calibration, team classification and PaddleOCR jersey identification, on a <b>single NVIDIA L2 at roughly half a GPU per camera</b>.</li>
+        <li>Held per-frame CV latency to <span class="m">~23 ms</span> and end-to-end CV-to-AR to <span class="m">88-153 ms</span> against a 500 ms p95 target, by running jersey OCR asynchronously in two GPU worker processes so identification never gates frame emission.</li>
+        <li>Raised identification reliability with confidence voting, pose-based torso cropping and x2 super-resolution ahead of OCR, and cut identity-swap artefacts with a track-ID stabiliser using speed-scaled re-association, team-colour confirmation and a 12 m/s velocity cap to reject teleports.</li>
+        <li>Wrote the capability assessment that <b>stopped the organisation over-claiming</b>: replaced an unmeasured "98% accuracy" headline with the measured pair (96-98% merged, 80-92% single-camera), killed an inconsistent sub-200 ms glass-to-glass figure, and flagged a "60,000 concurrent users" claim as infrastructure never load-tested.</li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="foot"><span>Haider Kamal - CV</span><span>haiderkamal.github.io</span><span>Page 1 of 2</span></div>
+</div>
+
+<!-- ================= PAGE 2 ================= -->
+<div class="page">
+  <section>
+    <h2>Other Products Built at Ideofuzion</h2>
+    <div class="grid">
+      <div><b>CementIQ</b> Automated cement-dispatch audit: bag count, brand, tax track-and-trace code, plate and pilferage checked per truck and reconciled into the plant ERP.</div>
+      <div><b>Digital Twin Ops</b> Live 3D twin of a pipeline network with sensor ingest, autonomous drone inspection and predictive integrity scoring.</div>
+      <div><b>Vision 3D</b> Photoreal 3D digital twins from a phone video, a drone pass or a single photograph, delivered to web, VR and AR.</div>
+      <div><b>AvatarAssist</b> Conversational avatar with a ~2s speech-to-speech round trip, lip-synced on screen, running on the client's own hardware.</div>
+      <div><b>Accelerator</b> AI-native placement-training platform with a coaching AI mentor and VR interview practice on Meta Quest.</div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Experience (continued)</h2>
+
+    <div class="role-block">
+      <div class="rh">
+        <h3>Game Developer - Ideofuzion</h3>
+        <span class="when">May 2023 - 2024</span>
+      </div>
+      <ul>
+        <li>Built the <b>official UIPM Obstacle Laser Run</b> for Android and iOS, for the world governing body of modern pentathlon: Unity state machines for responsive player control, a custom socket server for real-time multiplayer, friend challenges and leaderboards.</li>
+        <li>Engineered <b>Games-fi</b>, a play-to-earn platform on Tron with multi-currency in-game earnings and withdrawals, NFT minting and trading, and a secure raffles hub.</li>
+        <li>Built <b>Stunt-Z</b>, off-road racing across 150+ tracks with advanced vehicle physics, delivered through Google Play Asset Delivery with dynamic biomes synchronised server-side.</li>
+      </ul>
+    </div>
+
+    <div class="role-block">
+      <div class="rh">
+        <h3>Game Developer - Alam Digital HQ</h3>
+        <span class="when">Sep 2021 - Mar 2023</span>
+      </div>
+      <ul>
+        <li>Led design and development of <b>Project Zambeel</b>, a PC open-world third-person story-driven title: the dynamic mission and branching narrative system, high-fidelity asset pipelines, and the performance work to reach AAA-quality visuals.</li>
+        <li>Shipped <b>Valet Parking</b>, an HD Android parking simulator with realistic physics and a level-based grading system, with asset streaming and memory use optimised for stable frame rates across a wide device range.</li>
+      </ul>
+    </div>
+
+    <div class="role-block">
+      <div class="rh">
+        <h3>Game Developer - Coding Cannon</h3>
+        <span class="when">Jan 2017 - Sep 2021</span>
+      </div>
+      <ul>
+        <li>Engineered <b>Operation Basalat</b>, a team-based Android multiplayer shooter: real-time client-server networking, objective-driven gameplay loops, AI pathfinding for dynamic combat, and the UI feedback and balancing that keeps roles legible in cooperative play.</li>
+        <li>Shipped a long tail of independent Android titles, including Rush Hour Run, Pakdam Pakdai, Space Shooter, Hold'em Poker and Paper Boy.</li>
+      </ul>
+    </div>
+
+    <div class="role-block">
+      <div class="rh">
+        <h3>Earlier</h3>
+        <span class="when">2015 - 2020</span>
+      </div>
+      <ul>
+        <li><b>Ecommerce Marketing Manager</b>, Source House General Trading (2019-2020): regional GCC marketing, and built a responsive e-commerce site with payment gateways and real-time inventory. <b>IT Officer</b>, INSTRUMED (2015-2019). <b>Graphic Designer</b>, freelance (2015-2017).</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>Also Shipped</h2>
+    <p class="lede"><b>Brawl Dinos</b>, a live real-time multiplayer arena brawler on Google Play, built in Unity with authoritative server-side matches, real-time state synchronisation and cross-device matchmaking.</p>
+  </section>
+
+  <section>
+    <h2>Education &amp; Awards</h2>
+    <div class="edu">
+      <span><b>MSc Computer Software Engineering</b> - National University of Sciences and Technology (NUST) · <b style="color:var(--accent)">Gold Medalist</b></span>
+      <span class="when">Sep 2020 - Mar 2022</span>
+    </div>
+  </section>
+
+  <section>
+    <h2>Portfolio</h2>
+    <p class="lede">Case studies with demo videos for every system above: <b>haiderkamal.github.io</b></p>
+  </section>
+
+  <div class="foot"><span>Haider Kamal - CV</span><span>haiderkamal.github.io</span><span>Page 2 of 2</span></div>
+</div>
+
+</body>
+</html>
