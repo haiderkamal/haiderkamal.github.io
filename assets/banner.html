@@ -19,7 +19,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  :root{ --ink:#08090a; --paper:#f0efec; --dim:#8d8f8b; --acid:#d7ff3e; }
+  :root{ --ink:#08090a; --paper:#f0efec; --dim:#8d8f8b; --accent:#c36bcb; }
   *{box-sizing:border-box}
   html,body{margin:0;padding:0;background:var(--ink)}
   .banner{
@@ -48,20 +48,20 @@
     font-family:"JetBrains Mono",ui-monospace,monospace;font-size:13px;font-weight:500;
     letter-spacing:.26em;text-transform:uppercase;color:rgba(240,239,236,.66);margin:0 0 18px;
   }
-  .kicker i{font-style:normal;color:var(--acid);opacity:.9;padding:0 .15em}
+  .kicker i{font-style:normal;color:var(--accent);opacity:.9;padding:0 .15em}
   .line{
     font-family:"Space Grotesk","Inter",system-ui,sans-serif;font-weight:700;
     font-size:40px;line-height:1.15;letter-spacing:-.035em;color:var(--paper);
     margin:0 0 20px;white-space:nowrap;
   }
-  .line b{font-weight:700;color:var(--acid)}
+  .line b{font-weight:700;color:var(--accent)}
   .url{
     font-family:"JetBrains Mono",ui-monospace,monospace;font-size:14px;letter-spacing:.16em;
     text-transform:lowercase;color:var(--dim);margin:0;
   }
   .rule{
     position:absolute;z-index:2;left:50%;transform:translateX(-50%);
-    width:120px;height:1px;background:var(--acid);opacity:.5;bottom:52px;
+    width:120px;height:1px;background:var(--accent);opacity:.5;bottom:52px;
   }
   :root:target{}
   body.clean .copy,body.clean .rule{display:none}
@@ -81,6 +81,16 @@
 <script>
 (function () {
   if (location.hash === '#clean') document.body.classList.add('clean');
+
+  // ?c=RRGGBB repaints the whole banner, canvas included
+  var q = /[?&]c=([0-9a-fA-F]{6})/.exec(location.search);
+  if (q) document.documentElement.style.setProperty('--accent', '#' + q[1]);
+  var hex = getComputedStyle(document.documentElement)
+              .getPropertyValue('--accent').trim().replace('#', '');
+  var AR = parseInt(hex.substr(0, 2), 16),
+      AG = parseInt(hex.substr(2, 2), 16),
+      AB = parseInt(hex.substr(4, 2), 16);
+  function acc(a) { return 'rgba(' + AR + ',' + AG + ',' + AB + ',' + a + ')'; }
 
   var cv  = document.getElementById('cloud');
   var ctx = cv.getContext('2d');
@@ -129,7 +139,7 @@
     if (near > 0) { a += near * 0.45; r += near * 1.2; }
 
     ctx.fillStyle = (p.hot || near > 0.5)
-      ? 'rgba(215,255,62,' + Math.min(0.9, a + 0.12).toFixed(3) + ')'
+      ? acc(Math.min(0.9, a + 0.12).toFixed(3))
       : 'rgba(240,239,236,' + a.toFixed(3) + ')';
     ctx.beginPath();
     ctx.arc(p.sx, p.sy, r, 0, 6.2832);
@@ -150,7 +160,7 @@
     var w = o.w, h = o.h, x = o.x - w / 2, yy = o.y - h / 2;
     var arm = Math.min(w, h) * 0.28;
 
-    ctx.strokeStyle = 'rgba(215,255,62,0.8)';
+    ctx.strokeStyle = acc(0.8);
     ctx.beginPath();
     ctx.moveTo(x, yy + arm);          ctx.lineTo(x, yy);            ctx.lineTo(x + arm, yy);
     ctx.moveTo(x + w - arm, yy);      ctx.lineTo(x + w, yy);        ctx.lineTo(x + w, yy + arm);
@@ -158,13 +168,13 @@
     ctx.moveTo(x + arm, yy + h);      ctx.lineTo(x, yy + h);        ctx.lineTo(x, yy + h - arm);
     ctx.stroke();
 
-    ctx.strokeStyle = 'rgba(215,255,62,0.38)';
+    ctx.strokeStyle = acc(0.38);
     ctx.beginPath();
     ctx.moveTo(o.x - 4, o.y); ctx.lineTo(o.x + 4, o.y);
     ctx.moveTo(o.x, o.y - 4); ctx.lineTo(o.x, o.y + 4);
     ctx.stroke();
 
-    ctx.fillStyle = 'rgba(215,255,62,0.72)';
+    ctx.fillStyle = acc(0.72);
     ctx.fillText(o.label + '  ' + o.conf, x, yy - 7);
   }
 })();
